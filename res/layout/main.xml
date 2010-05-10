@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"> 
+       
+        <ListView android:id="@+id/list"
+            android:background="@null"
+            android:scrollbars="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+        
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+    
+        <!-- Quick Add Task -->
+        <EditText android:id="@+id/quickAddText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:singleLine="true"
+            android:autoText="true"
+            android:capitalize="sentences"/>
+        
+        <!--              android:src="@android:drawable/ic_input_add"/> Quick Add Button -->
+        <Button android:id="@+id/quickAddButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start"
+        />
+
+
+    </LinearLayout>
+</LinearLayout>
+
