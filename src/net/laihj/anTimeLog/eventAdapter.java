@@ -41,32 +41,32 @@ public class eventAdapter extends BaseAdapter {
 
     public View getView(int Position, View convertView, ViewGroup parent) {
 	eventItem event = this.events.get(Position);
-	return new eventListView(this.context, event.event, event.startTime, event.endTime, event.type, event.duration );
+	return new eventListView(this.context, event);
     }
 
     private OnClickListener listenser = new OnClickListener() {
 	    public void onClick(View v) {
 		View container = (View)  v.getParent();
-		((eventListView) container).type.setText("abc");
-
+		eventItem event = ((eventListView) container).myEvent;
 	    }
 	};
 
     private class eventListView extends RelativeLayout {
+        public eventItem myEvent;
 	private TextView event;
 	private TextView theTime;
 	private TextView type;
 	private Button endBtn;
 	private Button EditBtn;
 
-	public eventListView(Context context, String event, Date startTime, Date endTime, String type, String duration) {
+	public eventListView(Context context, eventItem event) {
 	    super(context);
-
+            this.myEvent = event;
 	    RelativeLayout.LayoutParams rlEvent = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 										  ViewGroup.LayoutParams.WRAP_CONTENT);
 	    this.event = new TextView(context);
 	    this.event.setId(1);
-	    this.event.setText(event);
+	    this.event.setText(myEvent.event);
 	    this.event.setTextSize(19f);
 	    this.event.setTextColor(Color.WHITE);
 	    this.addView(this.event,rlEvent);
@@ -87,7 +87,7 @@ public class eventAdapter extends BaseAdapter {
 	    rltheTime.addRule(RelativeLayout.BELOW,1);
 	    this.theTime = new TextView(context);
 	    this.theTime.setId(3);
-	    this.theTime.setText(getTimeString(startTime,endTime,duration));
+	    this.theTime.setText(getTimeString(myEvent.startTime,myEvent.endTime,myEvent.duration));
 	    this.theTime.setTextSize(14f);
 	    this.theTime.setTextColor(Color.GRAY);
 	    this.addView(this.theTime,rltheTime);
