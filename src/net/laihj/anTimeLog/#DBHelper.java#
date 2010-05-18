@@ -57,7 +57,7 @@ public class DBHelper
         }
     }
 
-p    public DBHelper(final Context context)
+    public DBHelper(final Context context)
     {
 	this.dbOpenHelper = new DBOpenHelper(context);
 	establishDb();

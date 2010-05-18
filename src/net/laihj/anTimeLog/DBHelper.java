@@ -76,13 +76,18 @@ public class DBHelper
         }
     }
 
-    public void insert(final eventItem event) {
+    public long insert(final eventItem event) {
 	ContentValues values = new ContentValues();
 	values.put("event",event.event);
 	values.put("startTime",event.startTime.toString());
-	values.put("endTime",event.endTime.toString());
+	if(null == event.endTime) {
+	    values.put("endTime","");
+	} else {
+	    values.put("endTime",event.endTime.toString());	    
+	}
+
 	values.put("type",event.type);
-	this.db.insert(DBHelper.DB_TABLE, null, values);
+	return this.db.insert(DBHelper.DB_TABLE, null, values);
     }
 
     public void update(final eventItem event) {

@@ -16,6 +16,8 @@ public class eventItem
 	public eventItem(final String event, final Date startTime) {
 	    this.event = event;
 	    this.startTime = startTime;
+	    this.endTime = startTime;
+	    this.type = "default";
 	}
 
 	public eventItem(final long id, final String event, final Date startTime, final Date endTime, final String type, final String duration)
