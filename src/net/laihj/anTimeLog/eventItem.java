@@ -1,15 +1,49 @@
 package net.laihj.anTimeLog;
 
 import java.util.Date;
+import java.lang.StringBuilder;
+import java.text.SimpleDateFormat;
 
 public class eventItem
     {
+	private boolean timeChanged=true;
 	public long id;
 	public String event;
-	public Date startTime;
-	public Date endTime;
+	private Date startTime;
+	public Date getStartTime() {
+	    return this.startTime;
+	}
+	public void setStartTime(Date startTime) {
+	    this.startTime = startTime;
+	    this.timeChanged = true;
+	}
+	
+	private Date endTime;
+	public Date getEndTime() {
+	    return this.endTime;
+	}
+	public void setEndTime(Date endTime) {
+	    this.endTime = endTime;
+	    this.timeChanged = true;
+	}
 	public String type;
-	public String duration;
+	private String duration;
+	public String getDuration() {
+	    if (true) {
+	        StringBuilder sb = new StringBuilder();
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        sb.append(dateFormat.format(this.startTime));
+	    
+	        if(null == endTime) {
+	        } else {
+		
+	        }
+	        this.timeChanged = false;
+	        this.duration =  sb.toString();
+	    }
+	    return this.duration;
+	}
+	
 
 	public eventItem() { }
 

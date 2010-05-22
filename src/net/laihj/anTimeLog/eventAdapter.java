@@ -21,6 +21,7 @@ public class eventAdapter extends BaseAdapter {
     private static final String CLASSTAG = eventAdapter.class.getSimpleName();
     private final Context context;
     private final List<eventItem> events;
+    private DBHelper myDBHelper;
 
     public eventAdapter(Context context,List<eventItem> events) {
 	this.context = context;
@@ -48,6 +49,15 @@ public class eventAdapter extends BaseAdapter {
 	    public void onClick(View v) {
 		View container = (View)  v.getParent();
 		eventItem event = ((eventListView) container).myEvent;
+      		if(4 == v.getId()) {
+		    //edit
+		    
+		    }else {
+		    //end
+		    event.setEndTime(new Date());
+		    myDBHelper.update(event());
+		    notifyDataSetChanged();
+      		}
 	    }
 	};
 
@@ -73,7 +83,7 @@ public class eventAdapter extends BaseAdapter {
 
 	    RelativeLayout.LayoutParams rlType = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 										  ViewGroup.LayoutParams.WRAP_CONTENT);
-	    rlType.addRule(RelativeLayout.RIGHT_OF,1);
+	  
 	    rlType.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 	    this.type = new TextView(context);
 	    this.type.setId(2);
@@ -87,7 +97,7 @@ public class eventAdapter extends BaseAdapter {
 	    rltheTime.addRule(RelativeLayout.BELOW,1);
 	    this.theTime = new TextView(context);
 	    this.theTime.setId(3);
-	    this.theTime.setText(getTimeString(myEvent.startTime,myEvent.endTime,myEvent.duration));
+	    this.theTime.setText(myEvent.getDuration());
 	    this.theTime.setTextSize(14f);
 	    this.theTime.setTextColor(Color.GRAY);
 	    this.addView(this.theTime,rltheTime);

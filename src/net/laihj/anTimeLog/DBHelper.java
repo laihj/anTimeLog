@@ -79,11 +79,11 @@ public class DBHelper
     public long insert(final eventItem event) {
 	ContentValues values = new ContentValues();
 	values.put("event",event.event);
-	values.put("startTime",event.startTime.toString());
-	if(null == event.endTime) {
+	values.put("startTime",event.getStartTime().toString());
+	if(null == event.getEndTime()) {
 	    values.put("endTime","");
 	} else {
-	    values.put("endTime",event.endTime.toString());	    
+	    values.put("endTime",event.getEndTime().toString());	    
 	}
 
 	values.put("type",event.type);
@@ -93,8 +93,8 @@ public class DBHelper
     public void update(final eventItem event) {
 	ContentValues values = new ContentValues();
 	values.put("event",event.event);
-	values.put("startTime",event.startTime.toString());
-	values.put("endTime",event.endTime.toString());
+	values.put("startTime",event.getStartTime().toString());
+	values.put("endTime",event.getEndTime().toString());
 	values.put("type",event.type);
 	this.db.update(DBHelper.DB_TABLE,values,"_id=" + event.id, null);
     }
@@ -115,8 +115,8 @@ public class DBHelper
 		eventItem event = new eventItem();
 		event.id = c.getLong(0);
 		event.event = c.getString(1);
-		event.startTime = new Date(c.getString(2));
-		event.endTime = new Date(c.getString(3));
+		event.setStartTime(new Date(c.getString(2)));
+		event.setEndTime(new Date(c.getString(3)));
 		event.type = c.getString(4);
 		//event.duration
 		ret.add(event);
