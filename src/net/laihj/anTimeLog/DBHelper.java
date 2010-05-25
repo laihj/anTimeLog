@@ -99,6 +99,24 @@ public class DBHelper
 	this.db.update(DBHelper.DB_TABLE,values,"_id=" + event.id, null);
     }
 
+    public void freshItem(eventItem event) {
+	Cursor c = null;
+	try {
+	    c = this.db.query(DBHelper.DB_TABLE, DBHelper.COLS, "_id=" + event.id, null, null, null, null);
+	    c.moveToFirst();
+	    event.event = c.getString(1);
+	    event.setStartTime(new Date(c.getString(2)));
+	    event.setEndTime(new Date(c.getString(3)));
+	    event.type = c.getString(4);	
+	} catch (SQLException e) {
+	    Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
+	} finally {
+	    if (c != null && !c.isClosed()) {
+		c.close();
+	    }
+	}
+    }
+
     public void delete(final long id) {
 	this.db.delete(DBHelper.DB_TABLE,"_id=" + id,null);
     }

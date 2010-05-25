@@ -38,7 +38,7 @@ public class anTimeLog extends Activity
     {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.antimelog);
 
 	myDBHelper = new DBHelper(this);
 	ListView list = (ListView) findViewById(R.id.list);

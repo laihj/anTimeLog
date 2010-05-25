@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Button;
+import android.app.Activity;
+import android.content.Intent;
 
 import net.laihj.anTimeLog.eventItem;
 
@@ -26,6 +28,7 @@ public class eventAdapter extends BaseAdapter {
     public eventAdapter(Context context,List<eventItem> events) {
 	this.context = context;
 	this.events = events;
+	myDBHelper = new DBHelper(context);
     }
 
     public int getCount() {
@@ -51,11 +54,16 @@ public class eventAdapter extends BaseAdapter {
 		eventItem event = ((eventListView) container).myEvent;
       		if(4 == v.getId()) {
 		    //edit
+		    Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
+		    v.getContext().startActivity(intent);
+		    //	    myDBHelper.freshItem(event);
+		    notifyDataSetChanged();
 		    
 		    }else {
 		    //end
 		    event.setEndTime(new Date());
-		    myDBHelper.update(event());
+		    event.type = "abc";
+		    myDBHelper.update(event);
 		    notifyDataSetChanged();
       		}
 	    }
@@ -87,12 +95,12 @@ public class eventAdapter extends BaseAdapter {
 	    rlType.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 	    this.type = new TextView(context);
 	    this.type.setId(2);
-	    this.type.setText("type");
+	    this.type.setText(event.type);
 	    this.type.setTextSize(14f);
 	    this.type.setTextColor(Color.WHITE);
 	    this.addView(this.type,rlType);
 	    //theTime	    
-            RelativeLayout.LayoutParams rltheTime = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+            final RelativeLayout.LayoutParams rltheTime = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 										  ViewGroup.LayoutParams.WRAP_CONTENT);
 	    rltheTime.addRule(RelativeLayout.BELOW,1);
 	    this.theTime = new TextView(context);
@@ -102,7 +110,7 @@ public class eventAdapter extends BaseAdapter {
 	    this.theTime.setTextColor(Color.GRAY);
 	    this.addView(this.theTime,rltheTime);
 	    
-	    RelativeLayout.LayoutParams rleditBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+	    final RelativeLayout.LayoutParams rleditBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 										  ViewGroup.LayoutParams.WRAP_CONTENT);
 	    rleditBtn.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 	    rleditBtn.addRule(RelativeLayout.BELOW,3);
@@ -114,7 +122,7 @@ public class eventAdapter extends BaseAdapter {
 	    this.addView(this.EditBtn,rleditBtn);
 	    
 
-	    RelativeLayout.LayoutParams rlendBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+	    final RelativeLayout.LayoutParams rlendBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 
 	      								   ViewGroup.LayoutParams.WRAP_CONTENT);
 	    rlendBtn.addRule(RelativeLayout.BELOW,3);
@@ -123,12 +131,20 @@ public class eventAdapter extends BaseAdapter {
 	    this.endBtn = new Button(context);
 	    this.endBtn.setId(5);
 	    this.endBtn.setText("END");
+	    this.endBtn.setOnClickListener(listenser);
 	    this.addView(this.endBtn, rlendBtn);
-	    
+	    setOnClickListener(new OnClickListener(){
+		public void onClick(View v) {
+		    if(-1 == indexOfChild(endBtn)) {
+			addView(endBtn, rlendBtn);
+			addView(EditBtn,rleditBtn);
+		    }else{
+                        removeView(endBtn);
+			removeView(EditBtn);
+		    }
+		}
+		});
 
-	}
-	private String getTimeString(Date startTime, Date endTime, String duration) {
-	    return "to be continue";
 	}
     }
 }

@@ -2,6 +2,7 @@ package net.laihj.anTimeLog;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 public class editItem extends Activity
 {
@@ -10,6 +11,6 @@ public class editItem extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        this.setContentView(R.layout.edit_item);
     }
 }
