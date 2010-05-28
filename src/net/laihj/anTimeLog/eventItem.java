@@ -26,6 +26,7 @@ public class eventItem
 	    this.endTime = endTime;
 	    this.timeChanged = true;
 	}
+	
 	public String type;
 	private String duration;
 	public String getDuration() {
