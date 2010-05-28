@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.app.Activity;
 import android.content.Intent;
 
+
 import net.laihj.anTimeLog.eventItem;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class eventAdapter extends BaseAdapter {
       		if(4 == v.getId()) {
 		    //edit
 		    Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
+		    intent.putExtra("eventid",event.id);
 		    v.getContext().startActivity(intent);
 		    //	    myDBHelper.freshItem(event);
 		    notifyDataSetChanged();

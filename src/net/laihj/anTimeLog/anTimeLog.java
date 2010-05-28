@@ -47,7 +47,7 @@ public class anTimeLog extends Activity
         
 	events = new ArrayList<eventItem> ();
 	//get all list first
-	events = (ArrayList<eventItem>) myDBHelper.getAll();
+	//	events = (ArrayList<eventItem>) myDBHelper.getAll();
 	myAdapter = new eventAdapter(this, events);
 
 	list.setAdapter(myAdapter);

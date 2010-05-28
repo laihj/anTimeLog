@@ -117,6 +117,30 @@ public class DBHelper
 	}
     }
 
+    public eventItem getItemById(final long id) {
+	eventItem event = new eventItem();
+	Cursor c = null;
+	try {
+	    c = this.db.query(DBHelper.DB_TABLE, DBHelper.COLS, "_id=" + id, null, null, null, null);
+	    c.moveToFirst();
+	    event.id = c.getLong(0);
+	    event.event = c.getString(1);
+	    event.setStartTime(new Date(c.getString(2)));
+	    if("".equals(c.getString(3)) == false) {
+		event.setEndTime(new Date(c.getString(3)));
+	    }
+	    event.type = c.getString(4);	
+	} catch (SQLException e) {
+	    Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
+	} finally {
+	    if (c != null && !c.isClosed()) {
+		c.close();
+	    }
+	}
+	return event;
+    }
+
+
     public void delete(final long id) {
 	this.db.delete(DBHelper.DB_TABLE,"_id=" + id,null);
     }

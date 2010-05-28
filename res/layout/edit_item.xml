@@ -4,16 +4,95 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="100"> 
-       
-        <ListView android:id="@+id/list"
-            android:background="@null"
-            android:scrollbars="vertical"
+  <TextView android:id="@+id/eventLabel"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:text="event"
+	    android:textSize="12sp" >
+  </TextView>
+  <EditText android:id="@+id/eventText"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-        
-    </FrameLayout>
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+  />
+  <LinearLayout
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal" >
+     <TextView android:id="@+id/startLabel"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="START:"
+	    android:textSize="16sp" >
+      </TextView>
+        <Button android:id="@+id/startDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartDate"
+        />
+        <Button android:id="@+id/startTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="StartTime"
+        />
+  </LinearLayout>
+  <LinearLayout
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal" >
+     <TextView android:id="@+id/endLabel"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="END:  "
+	    android:textSize="16sp" >
+      </TextView>
+        <Button android:id="@+id/endDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndDate"
+        />
+        <Button android:id="@+id/endTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EndTime"
+        />
+  </LinearLayout>
+    <LinearLayout
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal" >
+     <TextView android:id="@+id/typeLabel"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="TYPE: "
+	    android:textSize="16sp" >
+      </TextView>
+       <EditText android:id="@+id/typeText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+		 />
+  </LinearLayout>
+
+  <LinearLayout
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal" >
+        <Button android:id="@+id/OK"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="OK"
+        />
+        <Button android:id="@+id/cacel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="CACEL"
+        />
+  </LinearLayout>
 </LinearLayout>
