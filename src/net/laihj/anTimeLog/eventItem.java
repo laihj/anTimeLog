@@ -10,12 +10,30 @@ public class eventItem
 	public long id;
 	public String event;
 	private Date startTime;
+	static private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	static private SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm:ss");
 	public Date getStartTime() {
 	    return this.startTime;
 	}
 	public void setStartTime(Date startTime) {
 	    this.startTime = startTime;
 	    this.timeChanged = true;
+	}
+
+	public String getStartDate() {
+	    if (null == this.startTime) {
+		return "StartDate";
+	    } else {
+		return mDateFormat.format(this.startTime);
+	    }
+	}
+	
+	public String getStartTimes() {
+	    if (null == this.startTime) {
+		return "StartTime";
+	    } else {
+		return mTimeFormat.format(this.startTime);
+	    }
 	}
 	
 	private Date endTime;
@@ -25,6 +43,22 @@ public class eventItem
 	public void setEndTime(Date endTime) {
 	    this.endTime = endTime;
 	    this.timeChanged = true;
+	}
+
+	public String getEndDate() {
+	    if (null == this.endTime) {
+		return "EndDate";
+	    } else {
+		return mDateFormat.format(this.endTime);
+	    }
+	}
+
+	public String getEndTimes() {
+	    if(null == this.endTime) {
+		return "EndTime";
+	    } else {
+		return mTimeFormat.format(this.endTime);
+	    }
 	}
 	
 	public String type;

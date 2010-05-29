@@ -74,9 +74,6 @@ public class editItem extends Activity
 	    public void onClick(View v) {
 	
 		new DatePickerDialog(editItem.this,dateListener,theEvent.getStartTime().getYear() + 1900,theEvent.getStartTime().getMonth(),theEvent.getStartTime().getDate()).show();
-		    theEvent.getStartTime().setYear(mYear);
-		    theEvent.getStartTime().setMonth(mMonth);
-		    theEvent.getStartTime().setDate(mDate);
 	
 	    }
 	};
@@ -86,12 +83,20 @@ public class editItem extends Activity
 		mYear = year;
 		mMonth = month;
 		mDate = date;
+		theEvent.getStartTime().setYear(mYear-1900);
+		theEvent.getStartTime().setMonth(mMonth);
+		theEvent.getStartTime().setDate(mDate);
+	        startDate.setText(theEvent.getStartDate());
 	    }
 	};
 
     private void initComponent(eventItem event) {
 	eventText.setText(event.event);
 	typeText.setText(event.type);
+	startDate.setText(event.getStartDate());
+	startTime.setText(event.getStartTimes());
+	endDate.setText(event.getEndDate());
+	endTime.setText(event.getEndTimes());
 	
     }
 }
