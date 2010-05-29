@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.DBHelper;
@@ -34,12 +35,6 @@ public class editItem extends Activity
     private Button ok;
     private Button cancel;
 
-    private int mYear;
-    private int mMonth;
-    private int mDate;
-    //final private int mHour;
-    //final private int mMinute;
-    //final private int mSecond;
 
     /** Called when the activity is first created. */    
     @Override
@@ -68,24 +63,86 @@ public class editItem extends Activity
 	endDate.setOnClickListener(listenser);
 	startTime.setOnClickListener(listenser);
 	endTime.setOnClickListener(listenser);
+
+	ok.setOnClickListener( new OnClickListener() {
+		public void onClick(View v) {
+		    theEvent.event = eventText.getText().toString();
+		    theEvent.type = typeText.getText().toString();
+		    myDBHelper.update(theEvent);
+		    editItem.this.setResult(10,editItem.this.getIntent());
+		    editItem.this.finish();
+		}
+	    });
+	cancel.setOnClickListener(new OnClickListener() {
+		public void onClick(View v) {
+		    editItem.this.finish();
+		}
+	    });
     }
 
     private OnClickListener listenser = new OnClickListener() {
 	    public void onClick(View v) {
+		Date pickerDate ; 
+		if( R.id.startDate == v.getId() ) {
+		new DatePickerDialog(editItem.this,startDateListener,theEvent.getStartTime().getYear() + 1900,theEvent.getStartTime().getMonth(),theEvent.getStartTime().getDate()).show();
+		} else if( R.id.startTime == v.getId()) {
+		    new TimePickerDialog(editItem.this, startTimeListener, theEvent.getStartTime().getHours(), theEvent.getStartTime().getMinutes(), true).show();
+		} else if( R.id.endDate == v.getId() ) {
 	
-		new DatePickerDialog(editItem.this,dateListener,theEvent.getStartTime().getYear() + 1900,theEvent.getStartTime().getMonth(),theEvent.getStartTime().getDate()).show();
-	
+		    if (null == theEvent.getEndTime()) {
+			pickerDate = new Date();
+		    } else {
+			pickerDate = theEvent.getEndTime();
+		    }
+		    new DatePickerDialog(editItem.this, endDateListener, pickerDate.getYear() + 1900, pickerDate.getMonth(), pickerDate.getDate()).show();
+		} else if( R.id.endTime == v.getId() ) {
+		    if (null == theEvent.getEndTime()) {
+			pickerDate = new Date();
+		    } else {
+			pickerDate = theEvent.getEndTime();
+		    }
+		    new TimePickerDialog(editItem.this, endTimeListener, pickerDate.getHours(), pickerDate.getMinutes(), true).show();
+		}
 	    }
 	};
 
-    DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
+    TimePickerDialog.OnTimeSetListener endTimeListener = new TimePickerDialog.OnTimeSetListener() {
+	    public void onTimeSet(TimePicker view, int hour, int minute) {
+		if (null == theEvent.getEndTime()) {
+		    theEvent.setEndTime(new Date());
+		}
+		theEvent.getEndTime().setHours(hour);
+		theEvent.getEndTime().setMinutes(minute);
+		endTime.setText(theEvent.getEndTimes());
+	    }
+	};
+
+
+    DatePickerDialog.OnDateSetListener endDateListener = new DatePickerDialog.OnDateSetListener() {
 	    public void onDateSet(DatePicker view,int year, int month ,int date) {
-		mYear = year;
-		mMonth = month;
-		mDate = date;
-		theEvent.getStartTime().setYear(mYear-1900);
-		theEvent.getStartTime().setMonth(mMonth);
-		theEvent.getStartTime().setDate(mDate);
+		if(null == theEvent.getEndTime()) {
+		    theEvent.setEndTime(new Date());
+		}
+		theEvent.getEndTime().setYear(year-1900);
+		theEvent.getEndTime().setMonth(month);
+		theEvent.getEndTime().setDate(date);
+	        endDate.setText(theEvent.getEndDate());
+	    }
+	};
+
+    TimePickerDialog.OnTimeSetListener startTimeListener = new TimePickerDialog.OnTimeSetListener() {
+	    public void onTimeSet(TimePicker view, int hour, int minute) {
+		theEvent.getStartTime().setHours(hour);
+		theEvent.getStartTime().setMinutes(minute);
+		startTime.setText(theEvent.getStartTimes());
+	    }
+	};
+
+    DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {
+	    public void onDateSet(DatePicker view,int year, int month ,int date) {
+		theEvent.getStartTime().setYear(year-1900);
+		theEvent.getStartTime().setMonth(month);
+		theEvent.getStartTime().setDate(date);
 	        startDate.setText(theEvent.getStartDate());
 	    }
 	};

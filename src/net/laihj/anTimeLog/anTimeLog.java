@@ -8,6 +8,8 @@ import android.widget.ListView;
 import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.view.View;
+import android.util.Log;
+import android.content.Intent;
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -47,7 +49,7 @@ public class anTimeLog extends Activity
         
 	events = new ArrayList<eventItem> ();
 	//get all list first
-	//	events = (ArrayList<eventItem>) myDBHelper.getAll();
+       	events = (ArrayList<eventItem>) myDBHelper.getAll();
 	myAdapter = new eventAdapter(this, events);
 
 	list.setAdapter(myAdapter);
@@ -55,14 +57,37 @@ public class anTimeLog extends Activity
 	quickButton.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {
 		    eventItem ei = new eventItem(quickText.getText().toString(), new Date());
-
-		    //save to db
 		    ei.id = myDBHelper.insert(ei);
-		    //change id
 		    events.add(ei);
 		    myAdapter.notifyDataSetChanged();
 		    quickText.setText("");
 		}
 	    });
+    }
+    @Override
+    public void onResume() {
+	super.onResume();
+	Log.i("aa","resume");
+    }
+    @Override
+	protected void onActivityResult(int requestCode, int resultCode,
+					Intent data) {
+	super.onActivityResult(requestCode,resultCode,data);
+	Log.i("bb","onR" + requestCode);
+	Log.i("re","ab "+ resultCode);
+	switch ( resultCode ) {
+	case 10:
+	    Log.i("aa","Result");
+	    Long editedEvent;
+	    editedEvent = data.getExtras().getLong("eventid");
+	    for(int i = 0 ; i < events.size() ;i ++) {
+		if(events.get(i).id == editedEvent) {
+		    myDBHelper.freshItem(events.get(i));
+		    myAdapter.notifyDataSetChanged();
+		    break;
+		}
+	    }
+	    break;
+	}
     }
 }

@@ -1,5 +1,6 @@
 package net.laihj.anTimeLog;
 
+
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -57,14 +58,12 @@ public class eventAdapter extends BaseAdapter {
 		    //edit
 		    Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
 		    intent.putExtra("eventid",event.id);
-		    v.getContext().startActivity(intent);
-		    //	    myDBHelper.freshItem(event);
+		    //v.getContext().startActivity(intent);
+		    ((Activity) v.getContext()).startActivityForResult(intent,1);
+		    //	      	    myDBHelper.freshItem(event);
 		    notifyDataSetChanged();
-		    
 		    }else {
-		    //end
 		    event.setEndTime(new Date());
-		    event.type = "abc";
 		    myDBHelper.update(event);
 		    notifyDataSetChanged();
       		}

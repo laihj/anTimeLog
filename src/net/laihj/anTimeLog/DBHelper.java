@@ -94,7 +94,11 @@ public class DBHelper
 	ContentValues values = new ContentValues();
 	values.put("event",event.event);
 	values.put("startTime",event.getStartTime().toString());
-	values.put("endTime",event.getEndTime().toString());
+	if(null == event.getEndTime()) {
+	    values.put("endTime","");
+	} else {
+	    values.put("endTime",event.getEndTime().toString());
+	}
 	values.put("type",event.type);
 	this.db.update(DBHelper.DB_TABLE,values,"_id=" + event.id, null);
     }
@@ -106,7 +110,9 @@ public class DBHelper
 	    c.moveToFirst();
 	    event.event = c.getString(1);
 	    event.setStartTime(new Date(c.getString(2)));
-	    event.setEndTime(new Date(c.getString(3)));
+	    if("".equals(c.getString(3)) == false) {
+		event.setEndTime(new Date(c.getString(3)));
+	    }
 	    event.type = c.getString(4);	
 	} catch (SQLException e) {
 	    Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
@@ -158,7 +164,9 @@ public class DBHelper
 		event.id = c.getLong(0);
 		event.event = c.getString(1);
 		event.setStartTime(new Date(c.getString(2)));
-		event.setEndTime(new Date(c.getString(3)));
+		if ("".equals(c.getString(3)) == false ) {
+		    event.setEndTime(new Date(c.getString(3)));
+		}
 		event.type = c.getString(4);
 		//event.duration
 		ret.add(event);
