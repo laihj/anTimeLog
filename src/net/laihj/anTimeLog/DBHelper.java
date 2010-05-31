@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.SimpleDateFormat;
 
 
 
@@ -180,5 +181,22 @@ public class DBHelper
 	    }
 	}
 	return ret;
+    }
+
+    static private SimpleDateFormat mDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+
+    public String DateToSqlite(Date date) {
+	return mDateTimeFormat.format(date);
+    }
+
+    public Date sqliteToDate(String sqldate) {
+	Date mdate = null;
+	try {
+	    mdate = mDateTimeFormat.parse(sqldate);
+	} catch(java.text.ParseException e) {
+	    Log.i("DBHelper","parseEx");
+        }
+	return mdate;
     }
 }
