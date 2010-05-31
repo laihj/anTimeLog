@@ -10,6 +10,9 @@ import android.view.View.OnClickListener;
 import android.view.View;
 import android.util.Log;
 import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuItem;
+
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -20,6 +23,8 @@ import java.util.Date;
 
 public class anTimeLog extends Activity
 {
+    final static private int MENU_SETTING = Menu.FIRST;
+    final static private int MENU_ALA = Menu.FIRST + 1;
     private ArrayList<eventItem> events;
     private eventAdapter myAdapter;
     private DBHelper myDBHelper;
@@ -69,6 +74,28 @@ public class anTimeLog extends Activity
 	super.onResume();
 	Log.i("aa","resume");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(0, anTimeLog.MENU_SETTING, 0, "Setting").setIcon(
+            android.R.drawable.ic_menu_more);
+	menu.add(0, anTimeLog.MENU_ALA, 0, "ana");
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch (item.getItemId()) {
+            case anTimeLog.MENU_SETTING:
+                Log.i("setting","menu click");
+                return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
+    }
+
+
+    
     @Override
 	protected void onActivityResult(int requestCode, int resultCode,
 					Intent data) {
