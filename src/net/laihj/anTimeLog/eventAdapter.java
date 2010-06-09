@@ -58,9 +58,7 @@ public class eventAdapter extends BaseAdapter {
 		    //edit
 		    Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
 		    intent.putExtra("eventid",event.id);
-		    //v.getContext().startActivity(intent);
 		    ((Activity) v.getContext()).startActivityForResult(intent,1);
-		    //	      	    myDBHelper.freshItem(event);
 		    notifyDataSetChanged();
 		    }else {
 		    event.setEndTime(new Date());
@@ -95,12 +93,12 @@ public class eventAdapter extends BaseAdapter {
 	  
 	    rlType.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 	    this.type = new TextView(context);
+	    this.type.setPadding(5,5,5,5);
 	    this.type.setId(2);
 	    this.type.setText(event.type);
 	    this.type.setTextSize(14f);
 	    this.type.setTextColor(Color.WHITE);
 	    this.addView(this.type,rlType);
-	    //theTime	    
             final RelativeLayout.LayoutParams rltheTime = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 										  ViewGroup.LayoutParams.WRAP_CONTENT);
 	    rltheTime.addRule(RelativeLayout.BELOW,1);
@@ -120,7 +118,6 @@ public class eventAdapter extends BaseAdapter {
 	    this.EditBtn.setId(4);
 	    this.EditBtn.setText("Edit");
 	    this.EditBtn.setOnClickListener(listenser);
-	    this.addView(this.EditBtn,rleditBtn);
 	    
 
 	    final RelativeLayout.LayoutParams rlendBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -133,7 +130,11 @@ public class eventAdapter extends BaseAdapter {
 	    this.endBtn.setId(5);
 	    this.endBtn.setText("END");
 	    this.endBtn.setOnClickListener(listenser);
-	    this.addView(this.endBtn, rlendBtn);
+	    if(null == myEvent.getEndTime()){
+		this.endBtn.setEnabled(true);
+	    }else{
+		this.endBtn.setEnabled(false);
+	    }
 	    setOnClickListener(new OnClickListener(){
 		public void onClick(View v) {
 		    if(-1 == indexOfChild(endBtn)) {

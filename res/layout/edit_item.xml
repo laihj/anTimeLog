@@ -7,7 +7,7 @@
   <TextView android:id="@+id/eventLabel"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:text="event"
+	    android:text="@string/event"
 	    android:textSize="12sp" >
   </TextView>
   <EditText android:id="@+id/eventText"
@@ -22,7 +22,7 @@
      <TextView android:id="@+id/startLabel"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="START:"
+	    android:text="@string/startp"
 	    android:textSize="16sp" >
       </TextView>
         <Button android:id="@+id/startDate"

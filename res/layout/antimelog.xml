@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     >
     <FrameLayout
         android:layout_width="fill_parent"
@@ -10,8 +11,9 @@
         android:layout_weight="100"> 
        
         <ListView android:id="@+id/list"
-            android:background="@null"
-            android:scrollbars="vertical"
+	    android:fadingEdge="none"
+            android:background="@color/bg_green"
+	    android:padding="2sp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
         
@@ -22,7 +24,7 @@
         android:layout_weight="1"
         android:orientation="horizontal">
         <!-- Quick Add Task -->
-        <EditText android:id="@+id/quickAddText"
+        <AutoCompleteTextView android:id="@+id/quickAddText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="100"
@@ -33,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Start"
+            android:text="@string/start"
         />
     </LinearLayout>
 </LinearLayout>

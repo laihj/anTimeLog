@@ -11,7 +11,7 @@ public class eventItem
 	public String event;
 	private Date startTime;
 	static private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	static private SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm:ss");
+	static private SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
 	public Date getStartTime() {
 	    return this.startTime;
 	}
@@ -66,19 +66,41 @@ public class eventItem
 	public String getDuration() {
 	    if (true) {
 	        StringBuilder sb = new StringBuilder();
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        sb.append(dateFormat.format(this.startTime));
 	    
 	        if(null == endTime) {
+		    
 	        } else {
-		
+		    sb.append(" dura:" + diff(endTime,startTime));
 	        }
 	        this.timeChanged = false;
 	        this.duration =  sb.toString();
 	    }
 	    return this.duration;
 	}
-	
+
+	private String diff(Date endTime, Date startTime) {
+	    long seconds;
+	    seconds = (endTime.getTime() - startTime.getTime()) / 1000;
+	    int day = (int) seconds /(60 * 60 * 24);
+	    seconds = seconds - day * ( 60 * 60 * 24 );
+	    int hours = (int) seconds / ( 60 * 60 );
+	    seconds = seconds - hours * 3600 ;
+	    int minute = (int) seconds / 60 ;
+	    StringBuilder dura = new StringBuilder();
+	    if(day > 0 ) {
+		dura.append(day + "days ");
+	    }
+	    if(hours > 0 ) {
+		dura.append( hours + "hours ");
+	    }
+	    if(minute > 0 ) {
+		dura.append( minute + "menutes" );
+	    }
+	    return dura.toString();
+	    
+	}
 
 	public eventItem() { }
 

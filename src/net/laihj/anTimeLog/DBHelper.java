@@ -80,13 +80,8 @@ public class DBHelper
     public long insert(final eventItem event) {
 	ContentValues values = new ContentValues();
 	values.put("event",event.event);
-	values.put("startTime",event.getStartTime().toString());
-	if(null == event.getEndTime()) {
-	    values.put("endTime","");
-	} else {
-	    values.put("endTime",event.getEndTime().toString());	    
-	}
-
+	values.put("startTime",DateToSqlite(event.getStartTime()));
+	values.put("endTime",DateToSqlite(event.getEndTime()));
 	values.put("type",event.type);
 	return this.db.insert(DBHelper.DB_TABLE, null, values);
     }
@@ -94,12 +89,8 @@ public class DBHelper
     public void update(final eventItem event) {
 	ContentValues values = new ContentValues();
 	values.put("event",event.event);
-	values.put("startTime",event.getStartTime().toString());
-	if(null == event.getEndTime()) {
-	    values.put("endTime","");
-	} else {
-	    values.put("endTime",event.getEndTime().toString());
-	}
+	values.put("startTime",DateToSqlite(event.getStartTime()));
+	values.put("endTime",DateToSqlite(event.getEndTime()));
 	values.put("type",event.type);
 	this.db.update(DBHelper.DB_TABLE,values,"_id=" + event.id, null);
     }
@@ -110,10 +101,8 @@ public class DBHelper
 	    c = this.db.query(DBHelper.DB_TABLE, DBHelper.COLS, "_id=" + event.id, null, null, null, null);
 	    c.moveToFirst();
 	    event.event = c.getString(1);
-	    event.setStartTime(new Date(c.getString(2)));
-	    if("".equals(c.getString(3)) == false) {
-		event.setEndTime(new Date(c.getString(3)));
-	    }
+	    event.setStartTime(sqliteToDate(c.getString(2)));
+	    event.setEndTime(sqliteToDate(c.getString(3)));
 	    event.type = c.getString(4);	
 	} catch (SQLException e) {
 	    Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
@@ -132,10 +121,8 @@ public class DBHelper
 	    c.moveToFirst();
 	    event.id = c.getLong(0);
 	    event.event = c.getString(1);
-	    event.setStartTime(new Date(c.getString(2)));
-	    if("".equals(c.getString(3)) == false) {
-		event.setEndTime(new Date(c.getString(3)));
-	    }
+	    event.setStartTime(sqliteToDate(c.getString(2)));
+	    event.setEndTime(sqliteToDate(c.getString(3)));
 	    event.type = c.getString(4);	
 	} catch (SQLException e) {
 	    Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
@@ -164,10 +151,8 @@ public class DBHelper
 		eventItem event = new eventItem();
 		event.id = c.getLong(0);
 		event.event = c.getString(1);
-		event.setStartTime(new Date(c.getString(2)));
-		if ("".equals(c.getString(3)) == false ) {
-		    event.setEndTime(new Date(c.getString(3)));
-		}
+		event.setStartTime(sqliteToDate(c.getString(2)));
+		event.setEndTime(sqliteToDate(c.getString(3)));
 		event.type = c.getString(4);
 		//event.duration
 		ret.add(event);
@@ -187,11 +172,18 @@ public class DBHelper
 
 
     public String DateToSqlite(Date date) {
-	return mDateTimeFormat.format(date);
+	if(null == date) {
+	    return "";
+	} else {
+	    return mDateTimeFormat.format(date);
+	}
     }
 
     public Date sqliteToDate(String sqldate) {
 	Date mdate = null;
+	if( "".equals(sqldate)) {
+	    return mdate;
+	}
 	try {
 	    mdate = mDateTimeFormat.parse(sqldate);
 	} catch(java.text.ParseException e) {

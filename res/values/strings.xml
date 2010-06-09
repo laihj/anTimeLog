@@ -3,4 +3,9 @@
     <string name="app_name">anTimeLog</string>
     <string name="setting">setting</string>
     <string name="analysis">analysis</string>
+    <string name="dateformat">yyyy-MM-dd</string>
+    <string name="timeformat">HH:mm:ss</string>
+    <string name="start">Start</string>
+    <string name="event">Event</string>
+    <string name="startp">START:</string>
 </resources>
