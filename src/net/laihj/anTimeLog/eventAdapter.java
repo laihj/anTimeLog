@@ -75,10 +75,13 @@ public class eventAdapter extends BaseAdapter {
 	private TextView type;
 	private Button endBtn;
 	private Button EditBtn;
+	private Context context;
+	final static int CLICKITEM = 1984;
 
 	public eventListView(Context context, eventItem event) {
 	    super(context);
             this.myEvent = event;
+	    this.context = context;
 	    this.setFocusable(true);
 	    this.setLongClickable(true);
 	    RelativeLayout.LayoutParams rlEvent = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -139,21 +142,17 @@ public class eventAdapter extends BaseAdapter {
 	    }
 	    setOnClickListener(new OnClickListener(){
 		public void onClick(View v) {
-		    if(-1 == indexOfChild(endBtn)) {
+		    ((anTimeLog) eventListView.this.context).selectedEvent = eventListView.this.myEvent;
+		    ((Activity) eventListView.this.context).showDialog(CLICKITEM);
+		    /*		    if(-1 == indexOfChild(endBtn)) {
 			addView(endBtn, rlendBtn);
 			addView(EditBtn,rleditBtn);
 		    }else{
                         removeView(endBtn);
 			removeView(EditBtn);
-		    }
+			}*/
 		}
 		});
-	    /*	    setOnLongClickListener(new OnLongClickListener() {
-		    public boolean onLongClick(View v) {
-			Log.i("long","longClick2222");
-			return true;
-		    }
-		    });*/
 	}
     }
 }

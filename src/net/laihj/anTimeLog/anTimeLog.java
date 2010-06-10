@@ -6,6 +6,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
+import android.content.res.Resources;
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -30,22 +32,36 @@ import net.laihj.anTimeLog.DBHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.lang.CharSequence;
 
 public class anTimeLog extends Activity
 {
     final static private int LONGCLICK = 1;
     final static private int SETTINGS = 2;
     final static private int ABOUT = 3;
-
     final static private int DO_IT = 1;
-    
+    final static private int CLICKITEM = 1984;
+
+    //position of OptionsMenu
     final static private int MENU_SETTING = Menu.FIRST;
     final static private int MENU_ALA = Menu.FIRST + 1;
+    
+    //position of contextMenu
+    final static private int CON_END = 0;
+    final static private int CON_DO_IT = 1;
+    final static private int CON_DELETE = 2;
+    final static private int CON_REPROT_THIS = 3;
+    final static private int CON_REPROT_TYPE = 4;
+    
+
+    
     private ArrayList<eventItem> events;
     private eventAdapter myAdapter;
     private DBHelper myDBHelper;
     private AutoCompleteTextView quickText ;
     public ListView list;
+    public eventItem selectedEvent = null;
+    private Resources res;
     /** Called when the activity is first created. */
     /*    private final Handler handler = new Handler () {
 	    @Override
@@ -69,7 +85,7 @@ public class anTimeLog extends Activity
 	list = (ListView) findViewById(R.id.list);
 	quickText = (AutoCompleteTextView) findViewById(R.id.quickAddText);
 	Button quickButton = (Button) findViewById(R.id.quickAddButton);
-        
+        res = getResources();
 	events = new ArrayList<eventItem> ();
 	//get all list first
 	Log.i("before getall","before getall");
@@ -128,9 +144,67 @@ public class anTimeLog extends Activity
 
     private String [] temps = { "a","b","CQ","c" };
     private String [] tempType = { "life","tra","work","read" };
+
+    @Override
+    protected void onPrepareDialog(int id, final Dialog dialog) {
+	switch( id) {
+	case CLICKITEM:
+	    if (null == selectedEvent ) {
+		break;
+	    } else {
+		((AlertDialog) dialog).setTitle(selectedEvent.event);
+		break;
+	    }
+	}
+    }
      @Override
     protected Dialog onCreateDialog(int id) {
 	 switch( id ) {
+	 case CLICKITEM :
+
+	     if ( null == selectedEvent ){
+		 return null;
+	     } else {
+		 Log.i("CLICKITEM",selectedEvent.event);
+		 CharSequence [] conMenu;
+		 conMenu = res.getTextArray(R.array.conmenu);
+		 return new AlertDialog.Builder(anTimeLog.this)
+		     .setTitle(selectedEvent.event)
+		     .setNegativeButton("do nothing", new DialogInterface.OnClickListener() {
+			     public void onClick(DialogInterface dialog, int which) {
+			     }
+			 })
+		     .setItems(conMenu, new DialogInterface.OnClickListener() {
+			     public void onClick(DialogInterface dialog, int which) {
+				 switch( which ) {
+				 case CON_END:
+				     if(null == selectedEvent.getEndTime()) {
+					 selectedEvent.setEndTime(new Date());
+					 anTimeLog.this.myDBHelper.update(selectedEvent);
+					 anTimeLog.this.myAdapter.notifyDataSetChanged();
+				     }
+				     break;
+				 case CON_DO_IT:
+				     eventItem ei = new eventItem(selectedEvent.event, new Date());
+				     ei.type = selectedEvent.type;
+				     anTimeLog.this.addEvent(ei);
+				     break;
+				 case CON_DELETE:
+				     myDBHelper.delete(selectedEvent.id);
+				     anTimeLog.this.events.remove(selectedEvent);
+				     anTimeLog.this.myAdapter.notifyDataSetChanged();
+				     selectedEvent = null;
+				     break;
+				 case CON_REPROT_THIS:
+				     break;
+				 case CON_REPROT_TYPE:
+				     break;
+				 }
+				     
+			     }
+			 })
+		     .create();
+			 }
 	 case LONGCLICK :
 
 	     return	 new AlertDialog.Builder(anTimeLog.this)
