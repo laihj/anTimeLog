@@ -25,12 +25,10 @@ public class eventAdapter extends BaseAdapter {
     private static final String CLASSTAG = eventAdapter.class.getSimpleName();
     private final Context context;
     private final List<eventItem> events;
-    private DBHelper myDBHelper;
 
     public eventAdapter(Context context,List<eventItem> events) {
 	this.context = context;
 	this.events = events;
-	myDBHelper = new DBHelper(context);
     }
 
     public int getCount() {
@@ -49,24 +47,6 @@ public class eventAdapter extends BaseAdapter {
 	eventItem event = this.events.get(Position);
 	return new eventListView(this.context, event);
     }
-
-    private OnClickListener listenser = new OnClickListener() {
-	    public void onClick(View v) {
-		View container = (View)  v.getParent();
-		eventItem event = ((eventListView) container).myEvent;
-      		if(4 == v.getId()) {
-		    //edit
-		    Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
-		    intent.putExtra("eventid",event.id);
-		    ((Activity) v.getContext()).startActivityForResult(intent,1);
-		    notifyDataSetChanged();
-		    }else {
-		    event.setEndTime(new Date());
-		    myDBHelper.update(event);
-		    notifyDataSetChanged();
-      		}
-	    }
-	};
 
     private class eventListView extends RelativeLayout {
         public eventItem myEvent;
@@ -113,7 +93,7 @@ public class eventAdapter extends BaseAdapter {
 	    this.theTime.setTextSize(14f);
 	    this.theTime.setTextColor(Color.GRAY);
 	    this.addView(this.theTime,rltheTime);
-	    
+	    /*	    
 	    final RelativeLayout.LayoutParams rleditBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 										  ViewGroup.LayoutParams.WRAP_CONTENT);
 	    rleditBtn.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -122,7 +102,6 @@ public class eventAdapter extends BaseAdapter {
 	    this.EditBtn = new Button(context);
 	    this.EditBtn.setId(4);
 	    this.EditBtn.setText("Edit");
-	    this.EditBtn.setOnClickListener(listenser);
 	    
 
 	    final RelativeLayout.LayoutParams rlendBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -139,19 +118,12 @@ public class eventAdapter extends BaseAdapter {
 		this.endBtn.setEnabled(true);
 	    }else{
 		this.endBtn.setEnabled(false);
-	    }
+		}*/
 	    setOnClickListener(new OnClickListener(){
 		public void onClick(View v) {
 		    ((anTimeLog) eventListView.this.context).selectedEvent = eventListView.this.myEvent;
 		    ((Activity) eventListView.this.context).showDialog(CLICKITEM);
-		    /*		    if(-1 == indexOfChild(endBtn)) {
-			addView(endBtn, rlendBtn);
-			addView(EditBtn,rleditBtn);
-		    }else{
-                        removeView(endBtn);
-			removeView(EditBtn);
-			}*/
-		}
+		    }
 		});
 	}
     }

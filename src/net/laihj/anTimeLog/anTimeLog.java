@@ -48,10 +48,11 @@ public class anTimeLog extends Activity
     
     //position of contextMenu
     final static private int CON_END = 0;
-    final static private int CON_DO_IT = 1;
-    final static private int CON_DELETE = 2;
-    final static private int CON_REPROT_THIS = 3;
-    final static private int CON_REPROT_TYPE = 4;
+    final static private int CON_EDIT = CON_END + 1;
+    final static private int CON_DO_IT = CON_EDIT + 1;
+    final static private int CON_DELETE = CON_DO_IT + 1;
+    final static private int CON_REPROT_THIS = CON_DELETE + 1;
+    final static private int CON_REPROT_TYPE = CON_REPROT_THIS + 1;
     
 
     
@@ -183,6 +184,12 @@ public class anTimeLog extends Activity
 					 anTimeLog.this.myDBHelper.update(selectedEvent);
 					 anTimeLog.this.myAdapter.notifyDataSetChanged();
 				     }
+				     break;
+				 case CON_EDIT:
+				     Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
+				     intent.putExtra("eventid",selectedEvent.id);
+				     Log.i("eventid","" + selectedEvent.id);
+				     anTimeLog.this.startActivityForResult(intent,1);
 				     break;
 				 case CON_DO_IT:
 				     eventItem ei = new eventItem(selectedEvent.event, new Date());

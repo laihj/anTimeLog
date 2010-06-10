@@ -83,6 +83,16 @@ public class editItem extends Activity
 	    });
     }
 
+    protected void onStop() {
+	super.onStop();
+	Log.i("stop","stop");
+	if(null != myDBHelper) {
+	    Log.i("stop","cleanup");
+	    myDBHelper.cleanup();
+	    myDBHelper = null;
+	}
+    }
+
     private OnClickListener listenser = new OnClickListener() {
 	    public void onClick(View v) {
 		Date pickerDate ; 
@@ -151,10 +161,10 @@ public class editItem extends Activity
 	};
 
     private void initComponent(eventItem event) {
-	Log.i("init begin","init begin");
+	Log.i("init begin","init begin" + event.event);
 	eventText.setText(event.event);
 	typeText.setText(event.type);
-		Log.i("init end","init end");
+	Log.i("init end","init end");
 	startDate.setText(event.getStartDate());
 	startTime.setText(event.getStartTimes());
 	endDate.setText(event.getEndDate());

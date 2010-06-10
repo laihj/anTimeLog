@@ -2,6 +2,7 @@
 <resources>
   <string-array name="conmenu">
     <item>END</item>
+    <item>EDIT</item>
     <item>DO IT</item>
     <item>DELETE</item>
     <item>REPORT THIS</item>
