@@ -1,6 +1,6 @@
 package net.laihj.anTimeLog;
 
-
+import android.view.View.OnLongClickListener;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
@@ -79,6 +79,8 @@ public class eventAdapter extends BaseAdapter {
 	public eventListView(Context context, eventItem event) {
 	    super(context);
             this.myEvent = event;
+	    this.setFocusable(true);
+	    this.setLongClickable(true);
 	    RelativeLayout.LayoutParams rlEvent = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 										  ViewGroup.LayoutParams.WRAP_CONTENT);
 	    this.event = new TextView(context);
@@ -146,7 +148,12 @@ public class eventAdapter extends BaseAdapter {
 		    }
 		}
 		});
-
+	    /*	    setOnLongClickListener(new OnLongClickListener() {
+		    public boolean onLongClick(View v) {
+			Log.i("long","longClick2222");
+			return true;
+		    }
+		    });*/
 	}
     }
 }

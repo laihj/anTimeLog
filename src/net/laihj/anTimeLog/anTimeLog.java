@@ -18,6 +18,11 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.app.Dialog;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuItem;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.view.View.OnCreateContextMenuListener;
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -31,6 +36,9 @@ public class anTimeLog extends Activity
     final static private int LONGCLICK = 1;
     final static private int SETTINGS = 2;
     final static private int ABOUT = 3;
+
+    final static private int DO_IT = 1;
+    
     final static private int MENU_SETTING = Menu.FIRST;
     final static private int MENU_ALA = Menu.FIRST + 1;
     private ArrayList<eventItem> events;
@@ -85,6 +93,15 @@ public class anTimeLog extends Activity
 		    return true;
 		}
 	    });
+
+        
+	list.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
+		 public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		     menu.add(0, DO_IT, 0, "do it");
+		     Log.i("do it","do it");
+		 }
+		
+	    });
     }
 
     private void addEvent(eventItem ei) {
@@ -100,7 +117,16 @@ public class anTimeLog extends Activity
 	    quickText.setText("");
     }
 
-    private String [] temps = { "吃饭","上班的车","CQ","读书" };
+
+    public boolean onContextItemSelected(MenuItem item) {
+	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+	eventItem ei = new eventItem(events.get((int) info.id).event, new Date());
+	ei.type = events.get((int)info.id).type;
+	addEvent(ei);
+	return true;
+    }
+
+    private String [] temps = { "a","b","CQ","c" };
     private String [] tempType = { "life","tra","work","read" };
      @Override
     protected Dialog onCreateDialog(int id) {
@@ -135,14 +161,14 @@ public class anTimeLog extends Activity
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case anTimeLog.MENU_SETTING:
                     Intent intent = new Intent("net.laihj.anTimeLog.action.SETTING");
 		    startActivityForResult(intent,SETTINGS);
                 return true;
         }
-        return super.onMenuItemSelected(featureId, item);
+        return true;
     }
 
 
