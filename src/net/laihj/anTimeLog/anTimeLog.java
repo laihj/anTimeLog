@@ -244,10 +244,14 @@ public class anTimeLog extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case anTimeLog.MENU_SETTING:
-                    Intent intent = new Intent("net.laihj.anTimeLog.action.SETTING");
-		    startActivityForResult(intent,SETTINGS);
-                return true;
+        case anTimeLog.MENU_SETTING:
+            Intent intent = new Intent("net.laihj.anTimeLog.action.SETTING");
+	    startActivityForResult(intent,SETTINGS);
+	    return true;
+	case anTimeLog.MENU_ALA:
+	    Intent intentReport = new Intent("net.laihj.anTimeLog.action.REPORT");
+	    startActivity(intentReport);
+            return true;
         }
         return true;
     }

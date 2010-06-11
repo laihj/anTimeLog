@@ -25,5 +25,13 @@
 	    <category android:name="android.intent.category.DEFAULT" />
 	  </intent-filter>
 	</activity>
+	<activity android:name="reports"
+		  android:label="@string/app_name">
+	  <intent-filter>
+	    <action android:name="net.laihj.anTimeLog.action.REPORT" />
+	    <category android:name="android.intent.category.DEFAULT" />
+	  </intent-filter>
+	</activity>
+
     </application>
 </manifest> 
