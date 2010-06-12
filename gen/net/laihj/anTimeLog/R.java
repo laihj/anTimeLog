@@ -24,14 +24,27 @@ public final class R {
         public static final int solid_red=0x7f020002;
     }
     public static final class id {
-        public static final int grid=0x7f080003;
+        public static final int OK=0x7f08000d;
+        public static final int cacel=0x7f08000e;
+        public static final int endDate=0x7f080009;
+        public static final int endLabel=0x7f080008;
+        public static final int endTime=0x7f08000a;
+        public static final int eventLabel=0x7f080003;
+        public static final int eventText=0x7f080004;
+        public static final int grid=0x7f08000f;
         public static final int list=0x7f080000;
         public static final int quickAddButton=0x7f080002;
         public static final int quickAddText=0x7f080001;
+        public static final int startDate=0x7f080006;
+        public static final int startLabel=0x7f080005;
+        public static final int startTime=0x7f080007;
+        public static final int typeLabel=0x7f08000b;
+        public static final int typeText=0x7f08000c;
     }
     public static final class layout {
         public static final int antimelog=0x7f030000;
-        public static final int reports=0x7f030001;
+        public static final int edit_item=0x7f030001;
+        public static final int reports=0x7f030002;
     }
     public static final class string {
         public static final int analysis=0x7f070002;

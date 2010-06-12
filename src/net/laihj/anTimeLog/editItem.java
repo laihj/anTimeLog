@@ -164,7 +164,7 @@ public class editItem extends Activity
 	Log.i("init begin","init begin" + event.event);
 	eventText.setText(event.event);
 	typeText.setText(event.type);
-	Log.i("init end","init end");
+	Log.i("init end","init endccc");
 	startDate.setText(event.getStartDate());
 	startTime.setText(event.getStartTimes());
 	endDate.setText(event.getEndDate());

@@ -139,6 +139,28 @@ public class DBHelper
 	this.db.delete(DBHelper.DB_TABLE,"_id=" + id,null);
     }
 
+    public List<String> getReport(Date startTime, Date endTime) {
+	ArrayList<String> ret = new ArrayList<String> ();
+	Cursor c = null;
+	try {
+	    c = this.db.rawQuery("select event,sum( strftime('%s',endTime) - strftime('%s', startTime) ) from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' group by event",null);
+	    int numRows = c.getCount();
+	    c.moveToFirst();
+	    for( int i = 0 ; i < numRows ; i++ ) {
+		ret.add(c.getString(0));
+		ret.add("" + c.getLong(1));
+		c.moveToNext();
+	    }
+	} catch (SQLException e) {
+	     Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
+	} finally {
+	    if (c != null && !c.isClosed()) {
+		c.close();
+	    }
+	}
+	return ret;
+    }
+
     public List<eventItem> getAll() {
 	ArrayList<eventItem> ret = new ArrayList<eventItem> ();
 	Cursor c = null;
@@ -154,7 +176,6 @@ public class DBHelper
 		event.setStartTime(sqliteToDate(c.getString(2)));
 		event.setEndTime(sqliteToDate(c.getString(3)));
 		event.type = c.getString(4);
-		//event.duration
 		ret.add(event);
 		c.moveToNext();
 	    }
