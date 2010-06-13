@@ -31,10 +31,10 @@ public final class R {
         public static final int endTime=0x7f08000a;
         public static final int eventLabel=0x7f080003;
         public static final int eventText=0x7f080004;
-        public static final int grid=0x7f08000f;
         public static final int list=0x7f080000;
         public static final int quickAddButton=0x7f080002;
         public static final int quickAddText=0x7f080001;
+        public static final int reportlist=0x7f08000f;
         public static final int startDate=0x7f080006;
         public static final int startLabel=0x7f080005;
         public static final int startTime=0x7f080007;
