@@ -4,13 +4,50 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-  <LinearLayout
+  <FrameLayout
      android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:orientation="horizontal" >
+     android:layout_height="wrap_content"
+     android:layout_weight="100"
+      >
      <ListView android:id="@+id/reportlist"
 	    android:padding="2sp"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
-  </LinearLayout>
+  </FrameLayout>
+      <LinearLayout
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button android:id="@+id/prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/prev"
+        />
+
+        <Button android:id="@+id/reportfrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2010-06-11"
+        />
+
+        <Button android:id="@+id/reportto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2010-06-11"
+        />
+
+        <Button android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/next"
+        />
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -83,15 +83,10 @@ public class eventItem
 	private String diff(Date endTime, Date startTime) {
 	    long seconds;
 	    seconds = (endTime.getTime() - startTime.getTime()) / 1000;
-	    int day = (int) seconds /(60 * 60 * 24);
-	    seconds = seconds - day * ( 60 * 60 * 24 );
 	    int hours = (int) seconds / ( 60 * 60 );
 	    seconds = seconds - hours * 3600 ;
 	    int minute = (int) seconds / 60 ;
 	    StringBuilder dura = new StringBuilder();
-	    if(day > 0 ) {
-		dura.append(day + "days ");
-	    }
 	    if(hours > 0 ) {
 		dura.append( hours + "hours ");
 	    }

@@ -32,9 +32,13 @@ public final class R {
         public static final int eventLabel=0x7f080003;
         public static final int eventText=0x7f080004;
         public static final int list=0x7f080000;
+        public static final int next=0x7f080013;
+        public static final int prev=0x7f080010;
         public static final int quickAddButton=0x7f080002;
         public static final int quickAddText=0x7f080001;
+        public static final int reportfrom=0x7f080011;
         public static final int reportlist=0x7f08000f;
+        public static final int reportto=0x7f080012;
         public static final int startDate=0x7f080006;
         public static final int startLabel=0x7f080005;
         public static final int startTime=0x7f080007;
@@ -51,6 +55,8 @@ public final class R {
         public static final int app_name=0x7f070000;
         public static final int dateformat=0x7f070003;
         public static final int event=0x7f070006;
+        public static final int next=0x7f070009;
+        public static final int prev=0x7f070008;
         public static final int setting=0x7f070001;
         public static final int start=0x7f070005;
         public static final int startp=0x7f070007;

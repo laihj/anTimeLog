@@ -18,10 +18,10 @@ public class reportItem {
 	Long minute =  sec / 60 ;
 	StringBuilder dura = new StringBuilder();
 	if(hours > 0 ) {
-	    dura.append( hours + "hours ");
+	    dura.append( hours + " h ");
 	}
 	if(minute > 0 ) {
-	    dura.append( minute + "menutes" );
+	    dura.append( minute + " m" );
 	}
 	return dura.toString();
     }

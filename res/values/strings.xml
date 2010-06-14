@@ -8,4 +8,6 @@
     <string name="start">Start</string>
     <string name="event">Event</string>
     <string name="startp">START:</string>
+    <string name="prev">&lt;&lt;</string>
+    <string name="next">&gt;&gt;</string>
 </resources>

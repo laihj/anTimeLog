@@ -53,8 +53,8 @@ public class eventAdapter extends BaseAdapter {
 	private TextView event;
 	private TextView theTime;
 	private TextView type;
-	private Button endBtn;
-	private Button EditBtn;
+	//	private Button endBtn;
+	//	private Button EditBtn;
 	private Context context;
 	final static int CLICKITEM = 1984;
 

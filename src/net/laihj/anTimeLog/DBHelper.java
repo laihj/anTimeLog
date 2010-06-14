@@ -139,13 +139,16 @@ public class DBHelper
     public void delete(final long id) {
 	this.db.delete(DBHelper.DB_TABLE,"_id=" + id,null);
     }
+    final static long ONE_DAY = 86400000;
 
     public List<reportItem> getReport(Date startTime, Date endTime) {
 	ArrayList<reportItem> ret = new ArrayList<reportItem> ();
+	endTime = new Date( endTime.getTime() + ONE_DAY );
 	Cursor c = null;
 	try {
 	    c = this.db.rawQuery("select event,sum( strftime('%s',endTime) - strftime('%s', startTime) ) from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' group by event",null);
 	    int numRows = c.getCount();
+	    Log.i("count", ""+numRows);
 	    c.moveToFirst();
 	    for( int i = 0 ; i < numRows ; i++ ) {
 		reportItem ri = new reportItem();
