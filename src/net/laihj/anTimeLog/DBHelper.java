@@ -171,7 +171,7 @@ public class DBHelper
 	ArrayList<eventItem> ret = new ArrayList<eventItem> ();
 	Cursor c = null;
 	try {
-	    c = this.db.query(DBHelper.DB_TABLE, DBHelper.COLS, null, null, null, null, null);
+	    c = this.db.rawQuery("select * from your_time_log limit -1 offset (select count(1) from your_time_log) - 20",null);
 	    int numRows = c.getCount();
 	    c.moveToFirst();
 

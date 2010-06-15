@@ -30,6 +30,7 @@ public class reports extends Activity
     final static long ONE_DAY = 86400000;
     private ArrayList<reportItem> list = null;
     private reportAdapter adapter = null;
+    private long diffDate;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -53,7 +54,7 @@ public class reports extends Activity
 	endDate = getDateOnly(new Date());
 	end.setText(getDate(endDate));
 	start.setText(getDate(startDate));
-
+        diffDate = ONE_DAY;
 	list = (ArrayList<reportItem>) myDBHelper.getReport(startDate,endDate);
         adapter = new reportAdapter(this,list);
 	listView.setAdapter(adapter);
@@ -85,6 +86,7 @@ public class reports extends Activity
 		startDate.setYear(year-1900);
 		startDate.setMonth(month);
 		startDate.setDate(date);
+		diffDate = endDate.getTime() - startDate.getTime() + ONE_DAY;
 		updateReport();
 	    }
 	};
@@ -94,6 +96,7 @@ public class reports extends Activity
 		endDate.setYear(year-1900);
 		endDate.setMonth(month);
 		endDate.setDate(date);
+		diffDate = endDate.getTime() - startDate.getTime() + ONE_DAY;
 		updateReport();
 	    }
 	};
@@ -110,8 +113,14 @@ public class reports extends Activity
 	    public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.prev:
+		    startDate = new Date( startDate.getTime() - diffDate);
+		    endDate = new Date( endDate.getTime() - diffDate);
+		    updateReport();
 		    break;
 		case R.id.next:
+		    startDate = new Date( startDate.getTime() + diffDate);
+		    endDate = new Date( endDate.getTime() + diffDate);
+		    updateReport();
 		    break;
 		case R.id.reportfrom:
 		    new DatePickerDialog(reports.this,startDateListener,startDate.getYear() + 1900,startDate.getMonth(),startDate.getDate()).show();

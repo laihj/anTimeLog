@@ -74,7 +74,7 @@ public class anTimeLog extends Activity
 		    
 		}
 	    }
-	    }*/
+	    }********/
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -130,6 +130,9 @@ public class anTimeLog extends Activity
 		     }
 		}
 	    events.add(ei);
+	    if(events.size() > 20) {
+		events.remove(0);
+	    }
 	    myAdapter.notifyDataSetChanged();
 	    quickText.setText("");
     }
