@@ -25,6 +25,9 @@ import android.view.MenuItem;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.app.ProgressDialog;
+import android.os.Message;
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -62,19 +65,22 @@ public class anTimeLog extends Activity
     private AutoCompleteTextView quickText ;
     public ListView list;
     public eventItem selectedEvent = null;
+    private ProgressDialog progressDialog;
     private Resources res;
     /** Called when the activity is first created. */
-    /*    private final Handler handler = new Handler () {
+    private final Handler handler = new Handler () {
 	    @Override
-	    public handlerMessage ( final Message msg ) {
+	    public void handleMessage ( Message msg ) {
 		progressDialog.dismiss();
 		if ( events == null || events.size() == 0 ) {
 		}
 		else {
-		    
+		    myAdapter = new eventAdapter(anTimeLog.this, events);
+		    list.setAdapter(myAdapter);
+		    list.setSelection(events.size()-1);		    
 		}
 	    }
-	    }********/
+	};
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -89,12 +95,8 @@ public class anTimeLog extends Activity
         res = getResources();
 	events = new ArrayList<eventItem> ();
 	//get all list first
-	Log.i("before getall","before getall");
-       	events = (ArrayList<eventItem>) myDBHelper.getAll();
-	myAdapter = new eventAdapter(this, events);
-	Log.i("after getall","after getall");
-	list.setAdapter(myAdapter);
-	list.setSelection(events.size()-1);
+
+
 
 	quickButton.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {
@@ -103,14 +105,6 @@ public class anTimeLog extends Activity
 
 		}
 	    });
-	quickButton.setOnLongClickListener(new OnLongClickListener() {
-		public boolean onLongClick(View v) {
-		    showDialog(LONGCLICK);
-		    Log.i("Longclick","LongClick");
-		    return true;
-		}
-	    });
-
         
 	list.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
 		 public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -233,6 +227,14 @@ public class anTimeLog extends Activity
     @Override
     public void onResume() {
 	super.onResume();
+	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
+        new Thread() {
+            @Override
+            public void run() {
+                events = (ArrayList<eventItem>) myDBHelper.getAll();
+                handler.sendEmptyMessage(0);
+            }
+        }.start();
     }
 
     @Override
