@@ -146,7 +146,7 @@ public class DBHelper
 	endTime = new Date( endTime.getTime() + ONE_DAY );
 	Cursor c = null;
 	try {
-	    c = this.db.rawQuery("select event,sum( strftime('%s',endTime) - strftime('%s', startTime) ) from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' group by event",null);
+	    c = this.db.rawQuery("select event,sum( strftime('%s',endTime) - strftime('%s', startTime) ) ti  from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' group by event order by ti desc",null);
 	    int numRows = c.getCount();
 	    Log.i("count", ""+numRows);
 	    c.moveToFirst();
@@ -155,6 +155,36 @@ public class DBHelper
 		ri.event = c.getString(0);
 		ri.seconds = c.getLong(1);
 		ret.add(ri);
+		c.moveToNext();
+	    }
+	} catch (SQLException e) {
+	     Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
+	} finally {
+	    if (c != null && !c.isClosed()) {
+		c.close();
+	    }
+	}
+	return ret;
+    }
+
+    public List<eventItem> getReportEvent(String event, Date startTime, Date endTime) {
+	ArrayList<eventItem> ret = new ArrayList<eventItem> ();
+	endTime = new Date( endTime.getTime() + ONE_DAY );
+	Log.i("event","event:"+event);
+	Cursor c = null;
+	try {
+	    c = this.db.rawQuery("select * from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' and event='" + event + "' ",null);
+	    int numRows = c.getCount();
+	    Log.i("count",""+numRows);
+	    c.moveToFirst();
+	    for( int i = 0 ; i < numRows ; i++ ) {
+		eventItem reporti = new eventItem();
+		reporti.id = c.getLong(0);
+		reporti.event = c.getString(1);
+		reporti.setStartTime(sqliteToDate(c.getString(2)));
+		reporti.setEndTime(sqliteToDate(c.getString(3)));
+		reporti.type = c.getString(4);
+		ret.add(reporti);
 		c.moveToNext();
 	    }
 	} catch (SQLException e) {

@@ -16,6 +16,7 @@ import android.content.Intent;
 
 
 import net.laihj.anTimeLog.reportItem;
+import net.laihj.anTimeLog.reports;
 
 import java.util.List;
 import java.util.Date;
@@ -83,7 +84,11 @@ public class reportAdapter extends BaseAdapter {
 
 	    setOnClickListener(new OnClickListener(){
 		public void onClick(View v) {
-
+		    Intent reportIntent = new Intent("net.laihj.anTimeLog.action.REPORTDETAIL");
+		    reportIntent.putExtra("event",reportListView.this.myReport.event);
+		    reportIntent.putExtra("startDate",((reports) reportListView.this.context).getStartDate().getTime());
+		    reportIntent.putExtra("endDate",((reports) reportListView.this.context).getEndDate().getTime());
+		    ((reports) reportListView.this.context).startActivity(reportIntent);
 		    }
 		});
 	}

@@ -48,6 +48,7 @@ public class anTimeLog extends Activity
     //position of OptionsMenu
     final static private int MENU_SETTING = Menu.FIRST;
     final static private int MENU_ALA = Menu.FIRST + 1;
+    final static private int MENU_ABOUT = Menu.FIRST + 2;
     
     //position of contextMenu
     final static private int CON_END = 0;
@@ -71,13 +72,14 @@ public class anTimeLog extends Activity
     private final Handler handler = new Handler () {
 	    @Override
 	    public void handleMessage ( Message msg ) {
-		progressDialog.dismiss();
+		//	progressDialog.dismiss();
 		if ( events == null || events.size() == 0 ) {
 		}
 		else {
 		    myAdapter = new eventAdapter(anTimeLog.this, events);
 		    list.setAdapter(myAdapter);
-		    list.setSelection(events.size()-1);		    
+		    list.setSelection(events.size()-1);
+		    quickText.clearFocus();
 		}
 	    }
 	};
@@ -104,14 +106,6 @@ public class anTimeLog extends Activity
 		    anTimeLog.this.addEvent(ei);
 
 		}
-	    });
-        
-	list.setOnCreateContextMenuListener( new OnCreateContextMenuListener() {
-		 public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		     menu.add(0, DO_IT, 0, "do it");
-		     Log.i("do it","do it");
-		 }
-		
 	    });
     }
 
@@ -140,8 +134,6 @@ public class anTimeLog extends Activity
 	return true;
     }
 
-    private String [] temps = { "a","b","CQ","c" };
-    private String [] tempType = { "life","tra","work","read" };
 
     @Override
     protected void onPrepareDialog(int id, final Dialog dialog) {
@@ -168,7 +160,7 @@ public class anTimeLog extends Activity
 		 conMenu = res.getTextArray(R.array.conmenu);
 		 return new AlertDialog.Builder(anTimeLog.this)
 		     .setTitle(selectedEvent.event)
-		     .setNegativeButton("do nothing", new DialogInterface.OnClickListener() {
+		     .setNegativeButton(res.getText(R.string.donothing), new DialogInterface.OnClickListener() {
 			     public void onClick(DialogInterface dialog, int which) {
 			     }
 			 })
@@ -209,25 +201,13 @@ public class anTimeLog extends Activity
 			 })
 		     .create();
 			 }
-	 case LONGCLICK :
-
-	     return	 new AlertDialog.Builder(anTimeLog.this)
-			.setTitle("template")
-			.setItems(temps, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-				    eventItem ei = new eventItem(temps[which].toString(), new Date());
-				    ei.type = tempType[which].toString();
-				    addEvent(ei);
-				}
-			    })
-			.create();
 	 }
 	 return null;
      }
     @Override
     public void onResume() {
 	super.onResume();
-	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
+	//       	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
         new Thread() {
             @Override
             public void run() {
@@ -241,8 +221,9 @@ public class anTimeLog extends Activity
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         menu.add(0, anTimeLog.MENU_SETTING, 0, R.string.setting).setIcon(
-            android.R.drawable.ic_menu_more);
-	menu.add(0, anTimeLog.MENU_ALA, 0, R.string.analysis);
+            android.R.drawable.ic_menu_preferences);
+	menu.add(0, anTimeLog.MENU_ALA, 0, R.string.analysis).setIcon(android.R.drawable.ic_menu_report_image);
+	menu.add(0, anTimeLog.MENU_ABOUT, 0, R.string.about).setIcon(android.R.drawable.ic_menu_info_details);
         return true;
     }
 
@@ -267,11 +248,8 @@ public class anTimeLog extends Activity
 	protected void onActivityResult(int requestCode, int resultCode,
 					Intent data) {
 	super.onActivityResult(requestCode,resultCode,data);
-	Log.i("bb","onR" + requestCode);
-	Log.i("re","ab "+ resultCode);
 	switch ( resultCode ) {
 	case 10:
-	    Log.i("aa","Result");
 	    Long editedEvent;
 	    editedEvent = data.getExtras().getLong("eventid");
 	    for(int i = 0 ; i < events.size() ;i ++) {

@@ -72,7 +72,7 @@ public class eventItem
 	        if(null == endTime) {
 		    
 	        } else {
-		    sb.append(" dura:" + diff(endTime,startTime));
+		    sb.append(diff(endTime,startTime));
 	        }
 	        this.timeChanged = false;
 	        this.duration =  sb.toString();
@@ -88,12 +88,16 @@ public class eventItem
 	    int minute = (int) seconds / 60 ;
 	    StringBuilder dura = new StringBuilder();
 	    if(hours > 0 ) {
-		dura.append( hours + "hours ");
+		dura.append( " " + hours + "hrs");
 	    }
 	    if(minute > 0 ) {
-		dura.append( minute + "menutes" );
+		dura.append( " " + minute + "min" );
 	    }
+	    if (dura.length() == 0) {
+		return " less than one minute";
+	    } else {
 	    return dura.toString();
+	    }
 	    
 	}
 
@@ -102,7 +106,6 @@ public class eventItem
 	public eventItem(final String event, final Date startTime) {
 	    this.event = event;
 	    this.startTime = startTime;
-	    this.type = "default";
 	}
 
 	public eventItem(final long id, final String event, final Date startTime, final Date endTime, final String type, final String duration)

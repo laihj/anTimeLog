@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.app.DatePickerDialog;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,11 +22,10 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import net.laihj.anTimeLog.DBHelper;
 
-public class reports extends Activity
+public class reportDetail extends Activity
 {
     /** Called when the activity is first created. */
     private DBHelper myDBHelper = null;
-    private ListView listView;
     private String event;
     private Button prev;
     private Button next;
@@ -34,16 +34,12 @@ public class reports extends Activity
     private Date startDate;
     private Date endDate;
     final static long ONE_DAY = 86400000;
-    private ArrayList<reportItem> list = null;
-    private reportAdapter adapter = null;
+    private ArrayList<eventItem> list = null;
+    private reportDetailAdapter adapter = null;
     private long diffDate;
+    private ListView listView;
 
     private boolean isMonth;
-    //position of OptionsMenu
-    final static private int MENU_TODAY = Menu.FIRST;
-    final static private int MENU_TWEEK = Menu.FIRST + 1;
-    final static private int MENU_TMON = Menu.FIRST + 2;
-
 
     public Date getStartDate() {
 	return startDate;
@@ -53,6 +49,10 @@ public class reports extends Activity
 	return endDate;
     }
 
+    //position of OptionsMenu
+    final static private int MENU_TODAY = Menu.FIRST;
+    final static private int MENU_TWEEK = Menu.FIRST + 1;
+    final static private int MENU_TMON = Menu.FIRST + 2;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -73,10 +73,23 @@ public class reports extends Activity
 	start.setOnClickListener(listenser);
 	end.setOnClickListener(listenser);
 
-	setToday();
-    }
 
-    
+	Bundle extras = getIntent().getExtras();
+
+	event = extras.getString("event");
+        startDate = new Date(extras.getLong("startDate"));
+        endDate = new Date(extras.getLong("endDate"));
+	diffDate = endDate.getTime() - startDate.getTime() + ONE_DAY;
+	TextView header = new TextView(this);
+	header.setText(event);
+	header.setTextSize(19f);
+	header.setGravity(Gravity.CENTER);
+
+	listView.addHeaderView(header);
+        
+	updateReport();
+
+    }
 
     private Date getDateOnly(Date datetime) {
 	datetime.setHours(0);
@@ -124,8 +137,8 @@ public class reports extends Activity
     private void updateReport() {
 	end.setText(getDate(endDate));
 	start.setText(getDate(startDate));
-	list = (ArrayList<reportItem>) myDBHelper.getReport(startDate,endDate);
-        adapter = new reportAdapter(this,list);
+	list = (ArrayList<eventItem>) myDBHelper.getReportEvent(event,startDate,endDate);
+        adapter = new reportDetailAdapter(this,list);
 	listView.setAdapter(adapter);
     }
 
@@ -157,21 +170,21 @@ public class reports extends Activity
 		    updateReport();
 		    break;
 		case R.id.reportfrom:
-		    new DatePickerDialog(reports.this,startDateListener,startDate.getYear() + 1900,startDate.getMonth(),startDate.getDate()).show();
+		    new DatePickerDialog(reportDetail.this,startDateListener,startDate.getYear() + 1900,startDate.getMonth(),startDate.getDate()).show();
 
 		    break;
 		case R.id.reportto:
-		    new DatePickerDialog(reports.this,endDateListener,endDate.getYear() + 1900,endDate.getMonth(),endDate.getDate()).show();
+		    new DatePickerDialog(reportDetail.this,endDateListener,endDate.getYear() + 1900,endDate.getMonth(),endDate.getDate()).show();
 
 		    break;
 		}
 	    }
 	};
 
-    @Override
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-	menu.add(0, MENU_TODAY, 0, R.string.today).setIcon(
+        menu.add(0, MENU_TODAY, 0, R.string.today).setIcon(
             android.R.drawable.ic_menu_day);
 	menu.add(0, MENU_TWEEK, 0, R.string.thisweek).setIcon(android.R.drawable.ic_menu_week);
 	menu.add(0, MENU_TMON, 0, R.string.thismonth).setIcon(android.R.drawable.ic_menu_month);
@@ -218,12 +231,6 @@ public class reports extends Activity
 	endDate = getDateOnly(rightNow.getTime());
 	isMonth = true;
 	updateReport();
-    }
-
-    private void prevMonth() {
-    }
-
-    private void nextMonth() {
     }
 
 }
