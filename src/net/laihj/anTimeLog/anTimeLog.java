@@ -28,6 +28,8 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.app.ProgressDialog;
 import android.os.Message;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -36,6 +38,7 @@ import net.laihj.anTimeLog.DBHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.lang.CharSequence;
+import java.lang.Integer;
 
 public class anTimeLog extends Activity
 {
@@ -68,6 +71,7 @@ public class anTimeLog extends Activity
     public eventItem selectedEvent = null;
     private ProgressDialog progressDialog;
     private Resources res;
+    private int display_num = 30;
     /** Called when the activity is first created. */
     private final Handler handler = new Handler () {
 	    @Override
@@ -118,7 +122,7 @@ public class anTimeLog extends Activity
 		     }
 		}
 	    events.add(ei);
-	    if(events.size() > 20) {
+	    if(events.size() > display_num) {
 		events.remove(0);
 	    }
 	    myAdapter.notifyDataSetChanged();
@@ -207,11 +211,14 @@ public class anTimeLog extends Activity
     @Override
     public void onResume() {
 	super.onResume();
+	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
+	display_num = Integer.parseInt(shardPre.getString("dispaly_preference","30"));
+	Log.i("display_num","" + display_num);
 	//       	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
         new Thread() {
             @Override
             public void run() {
-                events = (ArrayList<eventItem>) myDBHelper.getAll();
+                events = (ArrayList<eventItem>) myDBHelper.getAll(display_num);
                 handler.sendEmptyMessage(0);
             }
         }.start();

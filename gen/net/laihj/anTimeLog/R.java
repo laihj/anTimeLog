@@ -10,6 +10,10 @@ package net.laihj.anTimeLog;
 public final class R {
     public static final class array {
         public static final int conmenu=0x7f050000;
+        public static final int defaultview=0x7f050002;
+        public static final int defaultview_value=0x7f050004;
+        public static final int displaynum=0x7f050001;
+        public static final int displaynum_value=0x7f050003;
     }
     public static final class attr {
     }
@@ -55,6 +59,12 @@ public final class R {
         public static final int analysis=0x7f070002;
         public static final int app_name=0x7f070000;
         public static final int dateformat=0x7f070003;
+        public static final int default_display_num_value=0x7f070014;
+        public static final int default_view=0x7f070011;
+        public static final int default_view_check_value=0x7f070013;
+        public static final int default_view_comment=0x7f070012;
+        public static final int display_num=0x7f07000f;
+        public static final int display_num_comment=0x7f070010;
         public static final int donothing=0x7f07000a;
         public static final int event=0x7f070006;
         public static final int next=0x7f070009;

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">anTimeLog</string>
+    <string name="setting">设置</string>
+    <string name="analysis">报表</string>
+    <string name="dateformat">yyyy-MM-dd</string>
+    <string name="timeformat">HH:mm:ss</string>
+    <string name="start">开始</string>
+    <string name="event">事件</string>
+    <string name="startp">始于:</string>
+    <string name="prev">&lt;&lt;</string>
+    <string name="next">&gt;&gt;</string>
+    <string name="donothing">什么也不做</string>
+    <string name="today">本日</string>
+    <string name="thisweek">本周</string>
+    <string name="thismonth">本月</string>
+    <string name="about">关于</string>
+</resources>

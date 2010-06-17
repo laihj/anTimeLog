@@ -5,17 +5,22 @@
                 
     <PreferenceCategory
             android:title="title">
-        <CheckBoxPreference
-                android:key="enabled_autocomplete_preference"
-                android:title="enable autocomplete"
-                android:summary="enable autocomplete" />
-
-        <EditTextPreference
-                android:key="edittext_preference"
-                android:title="aa"
-                android:summary="cc"
-                android:dialogTitle="dd" />
-                
+         <ListPreference
+                android:key="dispaly_preference"
+                android:defaultValue="@string/default_display_num_value"
+                android:title="@string/display_num"
+                android:summary="@string/display_num_comment"
+                android:entries="@array/displaynum"
+                android:entryValues="@array/displaynum_value"
+                android:dialogTitle="@string/display_num" />
+        <ListPreference
+                android:key="view_preference"
+                android:defaultValue="@string/default_view_check_value"
+                android:title="@string/default_view"
+                android:summary="@string/default_view_comment"
+                android:entries="@array/defaultview"
+                android:entryValues="@array/defaultview_value"
+                android:dialogTitle="@string/default_view" />
     </PreferenceCategory>
 
     

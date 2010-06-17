@@ -13,6 +13,9 @@ import android.view.View;
 import android.app.DatePickerDialog;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 
 
 import java.util.Calendar;
@@ -73,7 +76,16 @@ public class reports extends Activity
 	start.setOnClickListener(listenser);
 	end.setOnClickListener(listenser);
 
-	setToday();
+	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
+	String defaultView = shardPre.getString("view_preference","Today");
+        if("Today".equals(defaultView)) {
+	    setToday();
+	} else if("This Week".equals(defaultView)) {
+	    setThisWeek();
+	} else {
+	    Calendar rightNow = Calendar.getInstance();
+	    setMonth(rightNow);
+	}
     }
 
     

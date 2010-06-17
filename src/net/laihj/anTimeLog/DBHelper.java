@@ -197,11 +197,11 @@ public class DBHelper
 	return ret;
     }
 
-    public List<eventItem> getAll() {
+    public List<eventItem> getAll(int num) {
 	ArrayList<eventItem> ret = new ArrayList<eventItem> ();
 	Cursor c = null;
 	try {
-	    c = this.db.rawQuery("select * from your_time_log limit -1 offset (select count(1) from your_time_log) - 20",null);
+	    c = this.db.rawQuery("select * from your_time_log limit -1 offset (select count(1) from your_time_log) - " + num,null);
 	    int numRows = c.getCount();
 	    c.moveToFirst();
 

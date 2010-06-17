@@ -15,4 +15,10 @@
     <string name="thisweek">this<br />week</string>
     <string name="thismonth">this<br />month</string>
     <string name="about">about</string>
+    <string name="display_num">Display Event</string>
+    <string name="display_num_comment">The number of display event on screen</string>
+    <string name="default_view">Default view</string>
+    <string name="default_view_comment">Default reports view</string>
+    <string name="default_view_check_value">Today</string>
+    <string name="default_display_num_value">30</string>
 </resources>

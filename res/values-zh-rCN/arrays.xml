@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="conmenu">
-    <item>END</item>
-    <item>EDIT</item>
-    <item>DO IT</item>
-    <item>DELETE</item>
+    <item>结束</item>
+    <item>编辑</item>
+    <item>继续做</item>
+    <item>删除</item>
   </string-array>
 
   <string-array name="displaynum">
@@ -14,12 +14,12 @@
     <item>60</item>
   </string-array>
   <string-array name="defaultview">
-    <item>Today</item>
-    <item>This Week</item>
-    <item>This Month</item>
+    <item>本日</item>
+    <item>本周</item>
+    <item>本月</item>
   </string-array>
 
-  <string-array name="displaynum_value">
+    <string-array name="displaynum_value">
     <item>15</item>
     <item>30</item>
     <item>45</item>
@@ -30,6 +30,7 @@
     <item>This Week</item>
     <item>This Month</item>
   </string-array>
+
 
 </resources>
 
