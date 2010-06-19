@@ -66,8 +66,9 @@ public class reportAdapter extends BaseAdapter {
 	    this.event.setId(1);
 	    this.event.setText(myReport.event);
 	    this.event.setTextSize(19f);
-	    this.event.setMinWidth(130);
-	    this.event.setMaxWidth(130);
+	    this.event.setPadding(2,8,2,8);
+	    this.event.setMinWidth(150);
+	    this.event.setMaxWidth(150);
 	    this.event.setTextColor(Color.WHITE);
 	    this.addView(this.event,rlEvent);
 
@@ -78,7 +79,7 @@ public class reportAdapter extends BaseAdapter {
 	    this.theTime.setId(2);
 	    this.theTime.setText(report.getTimeString());
 	    this.theTime.setTextSize(19f);
-	    
+	    this.theTime.setPadding(2,8,2,8);
 	    this.theTime.setTextColor(Color.WHITE);
 	    this.addView(this.theTime,rltheTime);
 

@@ -45,7 +45,7 @@
      <TextView android:id="@+id/endLabel"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="END:  "
+	    android:text="@string/endp"
 	    android:textSize="16sp" >
       </TextView>
         <Button android:id="@+id/endDate"
@@ -68,7 +68,7 @@
      <TextView android:id="@+id/typeLabel"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="TYPE: "
+	    android:text="@string/typep"
 	    android:textSize="16sp" >
       </TextView>
        <EditText android:id="@+id/typeText"
@@ -86,13 +86,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="OK"
+            android:text="@string/ok"
         />
         <Button android:id="@+id/cacel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CACEL"
+            android:text="@string/cancel"
         />
   </LinearLayout>
 </LinearLayout>

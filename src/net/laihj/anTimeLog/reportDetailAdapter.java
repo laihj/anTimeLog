@@ -66,6 +66,7 @@ public class reportDetailAdapter extends BaseAdapter {
 	    this.theTime.setId(3);
 	    this.theTime.setText(myEvent.getDuration());
 	    this.theTime.setTextSize(16f);
+	    this.theTime.setPadding(0,3,0,3);
 	    this.theTime.setTextColor(Color.WHITE);
 	    this.addView(this.theTime,rltheTime);
 	}

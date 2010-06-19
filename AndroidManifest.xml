@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="net.laihj.anTimeLog"
-      android:versionCode="1"
-      android:versionName="1.0">
+      android:versionCode="4"
+      android:versionName="1.0.3">
+      <uses-sdk android:minSdkVersion="3" 
+              android:targetSdkVersion="7"
+              />
     <application android:label="@string/app_name" android:icon="@drawable/antimelog">
         <activity android:name="anTimeLog"
                   android:label="@string/app_name">
@@ -39,6 +42,7 @@
 	    <category android:name="android.intent.category.DEFAULT" />
 	  </intent-filter>
 	</activity>
-
+	<meta-data android:value="a14c1b3c3196ebd" android:name="ADMOB_PUBLISHER_ID"/>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest> 

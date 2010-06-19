@@ -148,7 +148,6 @@ public class DBHelper
 	try {
 	    c = this.db.rawQuery("select event,sum( strftime('%s',endTime) - strftime('%s', startTime) ) ti  from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' group by event order by ti desc",null);
 	    int numRows = c.getCount();
-	    Log.i("count", ""+numRows);
 	    c.moveToFirst();
 	    for( int i = 0 ; i < numRows ; i++ ) {
 		reportItem ri = new reportItem();
@@ -170,12 +169,10 @@ public class DBHelper
     public List<eventItem> getReportEvent(String event, Date startTime, Date endTime) {
 	ArrayList<eventItem> ret = new ArrayList<eventItem> ();
 	endTime = new Date( endTime.getTime() + ONE_DAY );
-	Log.i("event","event:"+event);
 	Cursor c = null;
 	try {
 	    c = this.db.rawQuery("select * from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' and event='" + event + "' ",null);
 	    int numRows = c.getCount();
-	    Log.i("count",""+numRows);
 	    c.moveToFirst();
 	    for( int i = 0 ; i < numRows ; i++ ) {
 		eventItem reporti = new eventItem();
@@ -244,7 +241,7 @@ public class DBHelper
 	try {
 	    mdate = mDateTimeFormat.parse(sqldate);
 	} catch(java.text.ParseException e) {
-	    Log.i("DBHelper","parseEx");
+
         }
 	return mdate;
     }

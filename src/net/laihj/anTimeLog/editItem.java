@@ -56,11 +56,11 @@ public class editItem extends Activity
 
 	Bundle extras = getIntent().getExtras();
         eventId = extras.getLong("eventid");
-	Log.i("getEventStart","getEventStart");
+
 	theEvent = myDBHelper.getItemById(eventId);
-	Log.i("getEventEnd","getEventEnd");
+
 	initComponent(theEvent);
-	Log.i("init","init");
+
 
         startDate.setOnClickListener(listenser);
 	endDate.setOnClickListener(listenser);
@@ -85,9 +85,7 @@ public class editItem extends Activity
 
     protected void onStop() {
 	super.onStop();
-	Log.i("stop","stop");
 	if(null != myDBHelper) {
-	    Log.i("stop","cleanup");
 	    myDBHelper.cleanup();
 	    myDBHelper = null;
 	}
@@ -161,15 +159,13 @@ public class editItem extends Activity
 	};
 
     private void initComponent(eventItem event) {
-	Log.i("init begin","init begin" + event.event);
+	Log.i("anTimeLog","init");
 	eventText.setText(event.event);
 	typeText.setText(event.type);
-	Log.i("init end","init endccc");
 	startDate.setText(event.getStartDate());
 	startTime.setText(event.getStartTimes());
 	endDate.setText(event.getEndDate());
 	endTime.setText(event.getEndTimes());
-	Log.i("init end","init end");
-	
+ 
     }
 }

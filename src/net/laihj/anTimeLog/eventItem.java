@@ -88,10 +88,10 @@ public class eventItem
 	    int minute = (int) seconds / 60 ;
 	    StringBuilder dura = new StringBuilder();
 	    if(hours > 0 ) {
-		dura.append( " " + hours + "hrs");
+		dura.append( " " + hours + "hr ");
 	    }
 	    if(minute > 0 ) {
-		dura.append( " " + minute + "min" );
+		dura.append( " " + minute + " min" );
 	    }
 	    if (dura.length() == 0) {
 		return " less than one minute";

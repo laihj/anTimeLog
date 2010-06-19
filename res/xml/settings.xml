@@ -4,7 +4,7 @@
 
                 
     <PreferenceCategory
-            android:title="title">
+            android:title="@string/setting">
          <ListPreference
                 android:key="dispaly_preference"
                 android:defaultValue="@string/default_display_num_value"

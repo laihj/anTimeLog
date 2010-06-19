@@ -30,6 +30,9 @@ import android.app.ProgressDialog;
 import android.os.Message;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.text.util.Linkify;
+import android.text.method.LinkMovementMethod;
+import android.text.SpannableString;
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -40,6 +43,7 @@ import java.util.Date;
 import java.lang.CharSequence;
 import java.lang.Integer;
 
+import com.admob.android.ads.AdView;
 public class anTimeLog extends Activity
 {
     final static private int LONGCLICK = 1;
@@ -76,15 +80,10 @@ public class anTimeLog extends Activity
     private final Handler handler = new Handler () {
 	    @Override
 	    public void handleMessage ( Message msg ) {
-		//	progressDialog.dismiss();
-		if ( events == null || events.size() == 0 ) {
-		}
-		else {
 		    myAdapter = new eventAdapter(anTimeLog.this, events);
 		    list.setAdapter(myAdapter);
 		    list.setSelection(events.size()-1);
-		    quickText.clearFocus();
-		}
+		    quickText.clearFocus();	
 	    }
 	};
     @Override
@@ -115,6 +114,7 @@ public class anTimeLog extends Activity
 
     private void addEvent(eventItem ei) {
 	  ei.id = myDBHelper.insert(ei);
+	
 	  if( events.size() > 0 ) {
 	       if(null == events.get(events.size() - 1).getEndTime()) {
 		     events.get(events.size() - 1).setEndTime(new Date());
@@ -122,7 +122,9 @@ public class anTimeLog extends Activity
 		     }
 		}
 	    events.add(ei);
+	
 	    if(events.size() > display_num) {
+	
 		events.remove(0);
 	    }
 	    myAdapter.notifyDataSetChanged();
@@ -155,11 +157,9 @@ public class anTimeLog extends Activity
     protected Dialog onCreateDialog(int id) {
 	 switch( id ) {
 	 case CLICKITEM :
-
 	     if ( null == selectedEvent ){
 		 return null;
 	     } else {
-		 Log.i("CLICKITEM",selectedEvent.event);
 		 CharSequence [] conMenu;
 		 conMenu = res.getTextArray(R.array.conmenu);
 		 return new AlertDialog.Builder(anTimeLog.this)
@@ -181,7 +181,6 @@ public class anTimeLog extends Activity
 				 case CON_EDIT:
 				     Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
 				     intent.putExtra("eventid",selectedEvent.id);
-				     Log.i("eventid","" + selectedEvent.id);
 				     anTimeLog.this.startActivityForResult(intent,1);
 				     break;
 				 case CON_DO_IT:
@@ -205,6 +204,19 @@ public class anTimeLog extends Activity
 			 })
 		     .create();
 			 }
+	 case ABOUT:
+	     final TextView message = new TextView(this);
+	     final SpannableString s = 
+             new SpannableString(res.getText(R.string.author_info));
+	     Linkify.addLinks(s, Linkify.ALL);
+	     message.setText(s);
+	     message.setMovementMethod(LinkMovementMethod.getInstance());
+
+	     return new AlertDialog.Builder(anTimeLog.this)
+                .setTitle(R.string.about)
+		 .setView(message)
+                .create();
+
 	 }
 	 return null;
      }
@@ -213,7 +225,7 @@ public class anTimeLog extends Activity
 	super.onResume();
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
 	display_num = Integer.parseInt(shardPre.getString("dispaly_preference","30"));
-	Log.i("display_num","" + display_num);
+
 	//       	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
         new Thread() {
             @Override
@@ -245,6 +257,9 @@ public class anTimeLog extends Activity
 	    Intent intentReport = new Intent("net.laihj.anTimeLog.action.REPORT");
 	    startActivity(intentReport);
             return true;
+	case anTimeLog.MENU_ABOUT:
+	    showDialog(ABOUT);
+	    return true;
         }
         return true;
     }

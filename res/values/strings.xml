@@ -2,18 +2,22 @@
 <resources>
     <string name="app_name">anTimeLog</string>
     <string name="setting">setting</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CENCEL</string>
     <string name="analysis">summary</string>
     <string name="dateformat">yyyy-MM-dd</string>
     <string name="timeformat">HH:mm:ss</string>
     <string name="start">Start</string>
     <string name="event">Event</string>
     <string name="startp">START:</string>
+    <string name="endp">END：  </string>
+    <string name="typep">TYPE: </string>
     <string name="prev">&lt;&lt;</string>
     <string name="next">&gt;&gt;</string>
     <string name="donothing">do nothing</string>
     <string name="today">today</string>
-    <string name="thisweek">this<br />week</string>
-    <string name="thismonth">this<br />month</string>
+    <string name="thisweek">this week</string>
+    <string name="thismonth">this month</string>
     <string name="about">about</string>
     <string name="display_num">Display Event</string>
     <string name="display_num_comment">The number of display event on screen</string>
@@ -21,4 +25,10 @@
     <string name="default_view_comment">Default reports view</string>
     <string name="default_view_check_value">Today</string>
     <string name="default_display_num_value">30</string>
+    <string name="author_info">
+        Writed by laihj\n
+      blog:\thttp://www.laihj.net\n
+      E-mail:\tstarboard.mob@gmail.com\n
+      twitter:\t @laihj
+    </string>
 </resources>
