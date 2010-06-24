@@ -74,9 +74,10 @@ containing a value of this type.
     }
     public static final class drawable {
         public static final int antimelog=0x7f020000;
-        public static final int icon=0x7f020001;
-        public static final int solid_blue=0x7f020003;
-        public static final int solid_red=0x7f020002;
+        public static final int antimelog2=0x7f020001;
+        public static final int icon=0x7f020002;
+        public static final int solid_blue=0x7f020004;
+        public static final int solid_red=0x7f020003;
     }
     public static final class id {
         public static final int OK=0x7f08000e;

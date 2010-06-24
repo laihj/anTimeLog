@@ -33,6 +33,10 @@ import android.preference.PreferenceManager;
 import android.text.util.Linkify;
 import android.text.method.LinkMovementMethod;
 import android.text.SpannableString;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+
 
 import net.laihj.anTimeLog.eventItem;
 import net.laihj.anTimeLog.eventAdapter;
@@ -77,13 +81,15 @@ public class anTimeLog extends Activity
     private Resources res;
     private int display_num = 30;
     /** Called when the activity is first created. */
+
+    private NotificationManager mNotificationManager;
+
     private final Handler handler = new Handler () {
 	    @Override
 	    public void handleMessage ( Message msg ) {
 		    myAdapter = new eventAdapter(anTimeLog.this, events);
 		    list.setAdapter(myAdapter);
 		    list.setSelection(events.size()-1);
-		    quickText.clearFocus();	
 	    }
 	};
     @Override
@@ -93,7 +99,8 @@ public class anTimeLog extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.antimelog);
 
-	myDBHelper = new DBHelper(this);
+	//	myDBHelper = new DBHelper(this);
+	mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	list = (ListView) findViewById(R.id.list);
 	quickText = (AutoCompleteTextView) findViewById(R.id.quickAddText);
 	Button quickButton = (Button) findViewById(R.id.quickAddButton);
@@ -111,6 +118,17 @@ public class anTimeLog extends Activity
 		}
 	    });
     }
+    
+   protected void onStop() {
+	super.onStop();
+
+	if(null != myDBHelper) {
+
+	    myDBHelper.cleanup();
+	    myDBHelper = null;
+	}
+    }
+
 
     private void addEvent(eventItem ei) {
 	  ei.id = myDBHelper.insert(ei);
@@ -225,7 +243,7 @@ public class anTimeLog extends Activity
 	super.onResume();
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
 	display_num = Integer.parseInt(shardPre.getString("dispaly_preference","30"));
-
+        myDBHelper = new DBHelper(this);
 	//       	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
         new Thread() {
             @Override

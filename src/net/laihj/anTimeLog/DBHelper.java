@@ -35,7 +35,9 @@ public class DBHelper
             + " (_id INTEGER PRIMARY KEY, event TEXT, startTime TEXT, endTime  TEXT, type TEXT);";
 
         public DBOpenHelper(final Context context) {
+
             super(context, DBHelper.DB_NAME, null, DBHelper.DB_VERSION);
+	    Log.i("context","" + context.hashCode());
         }
 
         @Override
