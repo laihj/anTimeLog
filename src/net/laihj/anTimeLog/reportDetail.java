@@ -61,8 +61,9 @@ public class reportDetail extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reports);
-
-	myDBHelper = new DBHelper(this);
+	
+	anTimeLogApplication application = (anTimeLogApplication) getApplication();
+        myDBHelper = application.getDatabase();
 
 	listView = (ListView) findViewById(R.id.reportlist);
 	prev = (Button) findViewById(R.id.prev);
@@ -102,16 +103,6 @@ public class reportDetail extends Activity
     static private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String getDate(Date datetime) {
 	return mDateFormat.format(datetime);
-    }
-
-   protected void onStop() {
-	super.onStop();
-
-	if(null != myDBHelper) {
-
-	    myDBHelper.cleanup();
-	    myDBHelper = null;
-	}
     }
 
     DatePickerDialog.OnDateSetListener startDateListener = new DatePickerDialog.OnDateSetListener() {

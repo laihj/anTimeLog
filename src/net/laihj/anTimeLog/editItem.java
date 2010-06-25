@@ -43,7 +43,9 @@ public class editItem extends Activity
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.edit_item);
 
-	myDBHelper = new DBHelper(this);
+	anTimeLogApplication application = (anTimeLogApplication) getApplication();
+        myDBHelper = application.getDatabase();
+
 
 	eventText = (EditText) findViewById(R.id.eventText);
 	typeText = (EditText) findViewById(R.id.typeText);
@@ -81,14 +83,6 @@ public class editItem extends Activity
 		    editItem.this.finish();
 		}
 	    });
-    }
-
-    protected void onStop() {
-	super.onStop();
-	if(null != myDBHelper) {
-	    myDBHelper.cleanup();
-	    myDBHelper = null;
-	}
     }
 
     private OnClickListener listenser = new OnClickListener() {

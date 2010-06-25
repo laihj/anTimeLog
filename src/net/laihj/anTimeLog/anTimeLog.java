@@ -119,15 +119,7 @@ public class anTimeLog extends Activity
 	    });
     }
     
-   protected void onStop() {
-	super.onStop();
 
-	if(null != myDBHelper) {
-
-	    myDBHelper.cleanup();
-	    myDBHelper = null;
-	}
-    }
 
 
     private void addEvent(eventItem ei) {
@@ -243,7 +235,8 @@ public class anTimeLog extends Activity
 	super.onResume();
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
 	display_num = Integer.parseInt(shardPre.getString("dispaly_preference","30"));
-        myDBHelper = new DBHelper(this);
+	anTimeLogApplication application = (anTimeLogApplication) getApplication();
+        myDBHelper = application.getDatabase();
 	//       	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
         new Thread() {
             @Override
