@@ -26,6 +26,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.app.ProgressDialog;
 import android.os.Message;
 import android.content.SharedPreferences;
@@ -36,6 +37,7 @@ import android.text.SpannableString;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.widget.RemoteViews;
 
 
 import net.laihj.anTimeLog.eventItem;
@@ -83,24 +85,71 @@ public class anTimeLog extends Activity
     /** Called when the activity is first created. */
 
     private NotificationManager mNotificationManager;
-
+    private boolean showIcon;
     private final Handler handler = new Handler () {
 	    @Override
 	    public void handleMessage ( Message msg ) {
 		    myAdapter = new eventAdapter(anTimeLog.this, events);
 		    list.setAdapter(myAdapter);
 		    list.setSelection(events.size()-1);
+		    eventNotify();
 	    }
 	};
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	//	if(keyCode == KeyEvent.KEYCODE_BACK) {
+	//  dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_HOME));
+	//  return true;
+	//	}
+	return super.onKeyDown(keyCode,event);
+    }
+    private void eventNotify() {
+	if (!showIcon) {
+	    return;
+	}
+	Notification notif = new Notification();
+	PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+								new Intent(this, anTimeLog.class)
+								.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+								PendingIntent.FLAG_UPDATE_CURRENT);
+	notif.contentIntent = contentIntent;
+	
+	notif.icon = R.drawable.antimelog;
+	notif.flags = Notification.FLAG_ONGOING_EVENT;
+	
+	RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notify);
+
+	String eventtext = res.getString(R.string.tracking);
+	String time = "";
+
+	if(null == this.events || this.events.size() == 0) {
+	} else {
+	    if ( null == events.get(events.size() -1).getEndTime() ) {
+		eventtext = events.get(events.size() -1).event;
+		time = events.get(events.size() - 1 ) .getDuration();
+	    }
+	}
+	
+        contentView.setTextViewText(R.id.eventtext, eventtext);
+	notif.tickerText = eventtext;
+	contentView.setTextViewText(R.id.time, time);
+	
+        contentView.setImageViewResource(R.id.icon, R.drawable.antimelog);
+        notif.contentView = contentView;
+        mNotificationManager.notify(R.layout.notify, notif);
+
+    }
+
+    
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
 	requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.antimelog);
-
+        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	//	myDBHelper = new DBHelper(this);
-	mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
 	list = (ListView) findViewById(R.id.list);
 	quickText = (AutoCompleteTextView) findViewById(R.id.quickAddText);
 	Button quickButton = (Button) findViewById(R.id.quickAddButton);
@@ -120,6 +169,10 @@ public class anTimeLog extends Activity
     }
     
 
+    protected void onDestroy() {
+	super.onDestroy();
+	//mNotificationManager.cancel(R.layout.notify);
+    }
 
 
     private void addEvent(eventItem ei) {
@@ -139,6 +192,7 @@ public class anTimeLog extends Activity
 	    }
 	    myAdapter.notifyDataSetChanged();
 	    quickText.setText("");
+	    eventNotify();
     }
 
 
@@ -187,6 +241,7 @@ public class anTimeLog extends Activity
 					 anTimeLog.this.myDBHelper.update(selectedEvent);
 					 anTimeLog.this.myAdapter.notifyDataSetChanged();
 				     }
+				     eventNotify();
 				     break;
 				 case CON_EDIT:
 				     Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
@@ -197,12 +252,14 @@ public class anTimeLog extends Activity
 				     eventItem ei = new eventItem(selectedEvent.event, new Date());
 				     ei.type = selectedEvent.type;
 				     anTimeLog.this.addEvent(ei);
+				     eventNotify();
 				     break;
 				 case CON_DELETE:
 				     myDBHelper.delete(selectedEvent.id);
 				     anTimeLog.this.events.remove(selectedEvent);
 				     anTimeLog.this.myAdapter.notifyDataSetChanged();
 				     selectedEvent = null;
+				     eventNotify();
 				     break;
 				 case CON_REPROT_THIS:
 				     break;
@@ -221,6 +278,7 @@ public class anTimeLog extends Activity
 	     Linkify.addLinks(s, Linkify.ALL);
 	     message.setText(s);
 	     message.setMovementMethod(LinkMovementMethod.getInstance());
+	     message.setTextSize(19f);
 
 	     return new AlertDialog.Builder(anTimeLog.this)
                 .setTitle(R.string.about)
@@ -235,6 +293,10 @@ public class anTimeLog extends Activity
 	super.onResume();
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
 	display_num = Integer.parseInt(shardPre.getString("dispaly_preference","30"));
+	showIcon = shardPre.getBoolean("status_icon_preference",true);
+	if(!showIcon) {
+	    mNotificationManager.cancel(R.layout.notify);
+	}
 	anTimeLogApplication application = (anTimeLogApplication) getApplication();
         myDBHelper = application.getDatabase();
 	//       	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
@@ -292,6 +354,7 @@ public class anTimeLog extends Activity
 		    break;
 		}
 	    }
+	    eventNotify();
 	    break;
 	}
     }

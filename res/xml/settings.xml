@@ -20,7 +20,13 @@
                 android:summary="@string/default_view_comment"
                 android:entries="@array/defaultview"
                 android:entryValues="@array/defaultview_value"
-                android:dialogTitle="@string/default_view" />
+               android:dialogTitle="@string/default_view" />
+	<CheckBoxPreference
+                android:key="status_icon_preference"
+	        android:defaultValue="true"
+                android:title="@string/show_icon_on_status_bar"
+                android:summary="@string/if_show_icon_on_stats_bar" />
+
     </PreferenceCategory>
 
     

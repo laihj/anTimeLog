@@ -88,24 +88,28 @@ containing a value of this type.
         public static final int endTime=0x7f08000b;
         public static final int eventLabel=0x7f080004;
         public static final int eventText=0x7f080005;
+        public static final int eventtext=0x7f080011;
+        public static final int icon=0x7f080010;
         public static final int list=0x7f080001;
-        public static final int next=0x7f080014;
-        public static final int prev=0x7f080011;
+        public static final int next=0x7f080017;
+        public static final int prev=0x7f080014;
         public static final int quickAddButton=0x7f080003;
         public static final int quickAddText=0x7f080002;
-        public static final int reportfrom=0x7f080012;
-        public static final int reportlist=0x7f080010;
-        public static final int reportto=0x7f080013;
+        public static final int reportfrom=0x7f080015;
+        public static final int reportlist=0x7f080013;
+        public static final int reportto=0x7f080016;
         public static final int startDate=0x7f080007;
         public static final int startLabel=0x7f080006;
         public static final int startTime=0x7f080008;
+        public static final int time=0x7f080012;
         public static final int typeLabel=0x7f08000c;
         public static final int typeText=0x7f08000d;
     }
     public static final class layout {
         public static final int antimelog=0x7f030000;
         public static final int edit_item=0x7f030001;
-        public static final int reports=0x7f030002;
+        public static final int notify=0x7f030002;
+        public static final int reports=0x7f030003;
     }
     public static final class string {
         public static final int about=0x7f070012;
@@ -123,16 +127,19 @@ containing a value of this type.
         public static final int donothing=0x7f07000e;
         public static final int endp=0x7f07000a;
         public static final int event=0x7f070008;
+        public static final int if_show_icon_on_stats_bar=0x7f07001c;
         public static final int next=0x7f07000d;
         public static final int ok=0x7f070002;
         public static final int prev=0x7f07000c;
         public static final int setting=0x7f070001;
+        public static final int show_icon_on_status_bar=0x7f07001b;
         public static final int start=0x7f070007;
         public static final int startp=0x7f070009;
         public static final int thismonth=0x7f070011;
         public static final int thisweek=0x7f070010;
         public static final int timeformat=0x7f070006;
         public static final int today=0x7f07000f;
+        public static final int tracking=0x7f07001a;
         public static final int typep=0x7f07000b;
     }
     public static final class xml {

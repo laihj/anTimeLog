@@ -26,9 +26,18 @@
     <string name="default_view_check_value">Today</string>
     <string name="default_display_num_value">30</string>
     <string name="author_info">
-        Writed by laihj\n
-      blog:\thttp://www.laihj.net\n
-      E-mail:\tstarboard.mob@gmail.com\n
-      twitter:\t @laihj
+        Writed by laihj \n\n
+	
+      tutorial: starboard507.blogspot.com/p/tutorial.html \n\n
+	
+      blog:starboard507.blogspot.com \n\n
+	
+      E-mail:starboard.mob@gmail.com \n\n
+	
+      twitter: @laihj
     </string>
+    <string name="tracking">No event tracking</string>
+    <string name="show_icon_on_status_bar">show Notification</string>
+    <string name="if_show_icon_on_stats_bar">show an icon on status bar to switch easily</string>
+
 </resources>

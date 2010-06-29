@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.widget.ImageView;
 
 
 
@@ -39,6 +40,7 @@ public class reports extends Activity
     private Date startDate;
     private Date endDate;
     final static long ONE_DAY = 86400000;
+    final static long TOW_DAY = 86400000;
     private ArrayList<reportItem> list = null;
     private reportAdapter adapter = null;
     private long diffDate;
@@ -64,7 +66,7 @@ public class reports extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reports);
-
+     
 	anTimeLogApplication application = (anTimeLogApplication) getApplication();
         myDBHelper = application.getDatabase();
 

@@ -25,5 +25,19 @@
     <string name="default_view_comment">默认报表视图</string>
     <string name="default_view_check_value">Today</string>
     <string name="default_display_num_value">30</string>
+    <string name="author_info">
+        Writed by laihj \n\n
+	
+      操作指南：www.laihj.net/antimeloginfo  \n\n
+
+      blog:www.laihj.net \n\n
+
+      E-mail:starboard.mob@gmail.com \n\n
+	
+      twitter: @laihj
+    </string>
+    <string name="tracking">没有正在进行的事务</string>
+    <string name="show_icon_on_status_bar">显示状态栏图标</string>
+    <string name="if_show_icon_on_stats_bar">在状态栏上显示一个图标以方便切换程序</string>
 
 </resources>
