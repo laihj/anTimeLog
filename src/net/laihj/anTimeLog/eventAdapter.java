@@ -65,7 +65,7 @@ public class eventAdapter extends BaseAdapter {
 	    this.setFocusable(true);
 	    this.setLongClickable(true);
 	    RelativeLayout.LayoutParams rlEvent = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-										  ViewGroup.LayoutParams.WRAP_CONTENT);
+										  ViewGroup.LayoutParams.WRAP_CONTENT,100);
 	    this.event = new TextView(context);
 	    this.event.setId(1);
 	    this.event.setText(myEvent.event);
@@ -74,7 +74,7 @@ public class eventAdapter extends BaseAdapter {
 	    this.addView(this.event,rlEvent);
 
 	    RelativeLayout.LayoutParams rlType = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-										  ViewGroup.LayoutParams.WRAP_CONTENT);
+										 ViewGroup.LayoutParams.WRAP_CONTENT,1);
 	  
 	    rlType.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 	    this.type = new TextView(context);

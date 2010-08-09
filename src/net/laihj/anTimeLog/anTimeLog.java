@@ -38,6 +38,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.widget.RemoteViews;
+import android.view.inputmethod.InputMethodManager;
+import android.content.Context;
 
 
 import net.laihj.anTimeLog.eventItem;
@@ -86,6 +88,7 @@ public class anTimeLog extends Activity
 
     private NotificationManager mNotificationManager;
     private boolean showIcon;
+    private boolean needReflash;
     private final Handler handler = new Handler () {
 	    @Override
 	    public void handleMessage ( Message msg ) {
@@ -93,6 +96,7 @@ public class anTimeLog extends Activity
 		    list.setAdapter(myAdapter);
 		    list.setSelection(events.size()-1);
 		    eventNotify();
+		    needReflash = false;
 	    }
 	};
     @Override
@@ -144,7 +148,7 @@ public class anTimeLog extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-	requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.antimelog);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -156,7 +160,7 @@ public class anTimeLog extends Activity
         res = getResources();
 	events = new ArrayList<eventItem> ();
 	//get all list first
-
+	needReflash = true;
 
 
 	quickButton.setOnClickListener(new OnClickListener() {
@@ -292,7 +296,11 @@ public class anTimeLog extends Activity
     public void onResume() {
 	super.onResume();
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
-	display_num = Integer.parseInt(shardPre.getString("dispaly_preference","30"));
+	if( display_num != Integer.parseInt(shardPre.getString("dispaly_preference","30"))) {
+	    display_num = Integer.parseInt(shardPre.getString("dispaly_preference","30"));
+	    needReflash = true;
+
+	}
 	showIcon = shardPre.getBoolean("status_icon_preference",true);
 	if(!showIcon) {
 	    mNotificationManager.cancel(R.layout.notify);
@@ -300,13 +308,18 @@ public class anTimeLog extends Activity
 	anTimeLogApplication application = (anTimeLogApplication) getApplication();
         myDBHelper = application.getDatabase();
 	//       	this.progressDialog = ProgressDialog.show(this, " Loading...", " Londing events", true, false);
-        new Thread() {
-            @Override
-            public void run() {
-                events = (ArrayList<eventItem>) myDBHelper.getAll(display_num);
-                handler.sendEmptyMessage(0);
-            }
-        }.start();
+	if(needReflash) { 
+	    new Thread() {
+		@Override
+		    public void run() {
+		    events = (ArrayList<eventItem>) myDBHelper.getAll(display_num);
+		    handler.sendEmptyMessage(0);
+		}
+	    }.start();
+	}
+	InputMethodManager imm = (InputMethodManager) getSystemService (Context.INPUT_METHOD_SERVICE); 
+
+	imm.hideSoftInputFromWindow(quickText.getWindowToken(), 0);
     }
 
     @Override
