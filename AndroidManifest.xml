@@ -44,7 +44,6 @@
 	    <category android:name="android.intent.category.DEFAULT" />
 	  </intent-filter>
 	</activity>
-	<meta-data android:value="a14c1b3c3196ebd" android:name="ADMOB_PUBLISHER_ID"/>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest> 

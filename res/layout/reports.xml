@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	      xmlns:myapp="http://schemas.android.com/apk/res/net.laihj.anTimeLog"
+
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <com.admob.android.ads.AdView
-	 android:id="@+id/admain"
-	 android:layout_width="fill_parent"
-	 android:layout_height="wrap_content"
-	 myapp:backgroundColor="#000000"
-	 myapp:primaryTextColor="#FFFFFF"
-	 myapp:secondaryTextColor="#CCCCCC"
-	 myapp:keywords="Android application GTD time manage"
-         myapp:refreshInterval="30"
-	 myapp:testing="false"
-	 />
-
   <FrameLayout
      android:layout_width="fill_parent"
      android:layout_height="wrap_content"
