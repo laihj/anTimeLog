@@ -116,6 +116,10 @@ public class DBHelper
 	}
     }
 
+    public void clearall() {
+	this.db.execSQL("delete from your_time_log");
+    }
+
     public eventItem getItemById(final long id) {
 	eventItem event = new eventItem();
 	Cursor c = null;
