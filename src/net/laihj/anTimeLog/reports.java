@@ -16,13 +16,14 @@ import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.widget.ImageView;
-
+import android.view.Gravity;
 
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
 import net.laihj.anTimeLog.DBHelper;
 
 public class reports extends Activity
@@ -42,6 +43,7 @@ public class reports extends Activity
     private ArrayList<reportItem> list = null;
     private reportAdapter adapter = null;
     private long diffDate;
+    private TextView tailView;
 
     private boolean isMonth;
     //position of OptionsMenu
@@ -74,11 +76,17 @@ public class reports extends Activity
 	next = (Button) findViewById(R.id.next);
 	start = (Button) findViewById(R.id.reportfrom);
 	end = (Button) findViewById(R.id.reportto);
+	tailView = new TextView(this);
+	tailView.setGravity(Gravity.RIGHT);
+	tailView.setTextSize(17f);
+	tailView.setPadding(1,8,1,8);
 
+	listView.addFooterView(tailView);
 	prev.setOnClickListener(listenser);
 	next.setOnClickListener(listenser);
 	start.setOnClickListener(listenser);
 	end.setOnClickListener(listenser);
+
 
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
 	String defaultView = shardPre.getString("view_preference","Today");
@@ -133,7 +141,41 @@ public class reports extends Activity
 	start.setText(getDate(startDate));
 	list = (ArrayList<reportItem>) myDBHelper.getReport(startDate,endDate);
         adapter = new reportAdapter(this,list);
+	tailView.setText(sumRecordTime());
 	listView.setAdapter(adapter);
+    }
+
+    public String getTimeString(long seconds) {
+	Long sec = seconds;
+	Long hours =  sec / ( 60 * 60 );
+	sec = sec - hours * 3600 ;
+	Long minute =  sec / 60 ;
+	StringBuilder dura = new StringBuilder();
+	if(hours > 0 ) {
+	    dura.append( hours + " hr ");
+	}
+	if(minute > 0 ) {
+	    dura.append( minute + " min" );
+	}
+	return dura.toString();
+    }
+
+
+    private String sumRecordTime() {
+	long sumSeconds = 0;
+	for (reportItem ri : list) {
+	    sumSeconds += ri.seconds;
+	}
+	return "Recorded " + getTimeString(sumSeconds) + " (" + presentOfTime(sumSeconds) + "%)";
+    }
+
+    private String presentOfTime(long sumS) {
+	double r;
+	r = (double) sumS/((double) diffDate/1000)*100;
+	BigDecimal bd = new BigDecimal(r);
+	bd = bd.setScale(2,BigDecimal.ROUND_UP);
+	r = bd.doubleValue();
+	return "" + r;
     }
 
     private OnClickListener listenser = new OnClickListener() {

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import net.laihj.anTimeLog.DBHelper;
 
-import com.admob.android.ads.AdView;
 
 public class reportDetail extends Activity
 {

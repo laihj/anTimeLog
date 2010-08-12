@@ -348,10 +348,9 @@ public class anTimeLog extends Activity
 	    showDialog(ABOUT);
 	    return true;
 	case anTimeLog.CLEARALL:
-	    Log.i("clear","aa");
 	    myDBHelper.clearall();
 	    this.events.clear();
-	    this.eventAdapter.notifyDataSetChanged();
+	    this.myAdapter.notifyDataSetChanged();
 	    return true;
         }
         return true;
