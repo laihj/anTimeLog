@@ -64,6 +64,8 @@ public class anTimeLog extends Activity
     final static private int MENU_ALA = Menu.FIRST + 1;
     final static private int MENU_ABOUT = Menu.FIRST + 2;
     final static private int CLEARALL = Menu.FIRST + 3;
+    final static private int MENU_BACKUP = Menu.FIRST + 4;
+    final static private int MENU_RECOVERY = Menu.FIRST + 5;
     
     //position of contextMenu
     final static private int CON_END = 0;
@@ -330,6 +332,8 @@ public class anTimeLog extends Activity
 	menu.add(0, anTimeLog.MENU_ALA, 0, R.string.analysis).setIcon(android.R.drawable.ic_menu_report_image);
 	menu.add(0, anTimeLog.MENU_ABOUT, 0, R.string.about).setIcon(android.R.drawable.ic_menu_info_details);
 	menu.add(0,anTimeLog.CLEARALL, 0 , R.string.about);
+	menu.add(0,anTimeLog.MENU_BACKUP, 0 , R.string.about);
+	menu.add(0,anTimeLog.MENU_RECOVERY, 0 , R.string.about);
         return true;
     }
 
@@ -351,7 +355,11 @@ public class anTimeLog extends Activity
 	    //	    myDBHelper.clearall();
 	    //this.events.clear();
 	    //this.myAdapter.notifyDataSetChanged();
-	    BackupHelper.BackupDatabase();
+	    //	    BackupHelper.BackupDatabase();
+
+	    ((anTimeLogApplication) getApplication()).shutdownDataBase();
+	    BackupHelper.restoreDatabase();
+	    needReflash = true;
 	    return true;
         }
         return true;
