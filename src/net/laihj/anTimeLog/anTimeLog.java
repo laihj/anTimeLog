@@ -58,7 +58,7 @@ public class anTimeLog extends Activity
     final static private int ABOUT = 3;
     final static private int DO_IT = 1;
     final static private int CLICKITEM = 1984;
-
+    final static private int CLEARCONFIRM = 1989;
     //position of OptionsMenu
     final static private int MENU_SETTING = Menu.FIRST;
     final static private int MENU_ALA = Menu.FIRST + 1;
@@ -226,6 +226,22 @@ public class anTimeLog extends Activity
      @Override
     protected Dialog onCreateDialog(int id) {
 	 switch( id ) {
+	 case CLEARCONFIRM:
+	     return new AlertDialog.Builder(anTimeLog.this)
+		 .setTitle("Confirm?")
+		 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			 public void onClick(DialogInterface dialog,int which) {
+			 }
+		     })
+		 .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+			 public void onClick(DialogInterface dialog,int which) {
+			     anTimeLog.this.myDBHelper.clearall();
+			     anTimeLog.this.events.clear();
+			     anTimeLog.this.myAdapter.notifyDataSetChanged();
+			 }
+		     }
+		     )
+		 .create();
 	 case CLICKITEM :
 	     if ( null == selectedEvent ){
 		 return null;
@@ -356,7 +372,15 @@ public class anTimeLog extends Activity
 	    //this.events.clear();
 	    //this.myAdapter.notifyDataSetChanged();
 	    //	    BackupHelper.BackupDatabase();
-
+	    showDialog(CLEARCONFIRM);
+	    
+	    return true;
+	case anTimeLog.MENU_BACKUP:
+	    ((anTimeLogApplication) getApplication()).shutdownDataBase();
+	    BackupHelper.BackupDatabase();
+	    needReflash = true;
+	    return true;
+	case anTimeLog.MENU_RECOVERY:
 	    ((anTimeLogApplication) getApplication()).shutdownDataBase();
 	    BackupHelper.restoreDatabase();
 	    needReflash = true;
