@@ -47,5 +47,5 @@
     <string name="backups">备份成功!</string>
     <string name="backupe">备份失败，请稍后重试.</string>
     <string name="confirm">警告</string>
-
+    <string name="nobackupfile">没有备份文件!</string>
 </resources>

@@ -134,6 +134,7 @@ containing a value of this type.
         public static final int event=0x7f070009;
         public static final int if_show_icon_on_stats_bar=0x7f07001d;
         public static final int next=0x7f07000e;
+        public static final int nobackupfile=0x7f070025;
         public static final int ok=0x7f070003;
         public static final int prev=0x7f07000d;
         public static final int recover_confirm=0x7f07001f;

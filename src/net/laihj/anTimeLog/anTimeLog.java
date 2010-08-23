@@ -267,7 +267,7 @@ public class anTimeLog extends Activity
 
 	 case FILESELECT:
 
-	     backupFile = BackupHelper.getBackupFileList();
+
 	     return new AlertDialog.Builder(anTimeLog.this)
 		 .setTitle(res.getText(R.string.confirm))
 
@@ -388,9 +388,9 @@ public class anTimeLog extends Activity
             android.R.drawable.ic_menu_preferences);
 	menu.add(0, anTimeLog.MENU_ALA, 0, R.string.analysis).setIcon(android.R.drawable.ic_menu_report_image);
 	menu.add(0, anTimeLog.MENU_ABOUT, 0, R.string.about).setIcon(android.R.drawable.ic_menu_info_details);
-	menu.add(0,anTimeLog.CLEARALL, 0 , R.string.clearall);
-	menu.add(0,anTimeLog.MENU_BACKUP, 0 , R.string.backup);
-	menu.add(0,anTimeLog.MENU_RECOVERY, 0 , R.string.recovery);
+	menu.add(0,anTimeLog.CLEARALL, 0 , R.string.clearall).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+	menu.add(0,anTimeLog.MENU_BACKUP, 0 , R.string.backup).setIcon(android.R.drawable.ic_menu_save);
+	menu.add(0,anTimeLog.MENU_RECOVERY, 0 , R.string.recovery).setIcon(android.R.drawable.ic_menu_rotate);
         return true;
     }
 
@@ -426,6 +426,11 @@ public class anTimeLog extends Activity
 	    needReflash = true;
 	    return true;
 	case anTimeLog.MENU_RECOVERY:
+	    backupFile = BackupHelper.getBackupFileList();
+	    if(backupFile.length == 0) {
+		Toast.makeText(getApplicationContext(),res.getText(R.string.nobackupfile),Toast.LENGTH_LONG).show();
+		return true;
+	    }
 	    showDialog(FILESELECT);
 	    return true;
         }

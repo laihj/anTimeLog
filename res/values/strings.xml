@@ -47,5 +47,5 @@
     <string name="recovery">Recovery</string>
     <string name="backups"> backup secessed!</string>
     <string name="backupe">backup error,try again later.</string>
-
+    <string name="nobackupfile">No backup file existed!</string>
 </resources>

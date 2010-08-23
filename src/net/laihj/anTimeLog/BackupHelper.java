@@ -18,6 +18,12 @@ public class BackupHelper {
     public static final String PackageName = "net.laihj.anTimeLog";
     public static final String BackupPath = "\\sdcard\\anTimeLog_bk";
     static private SimpleDateFormat mDateTimeFormat = new SimpleDateFormat("yyyyMMdd");
+    static {
+	File bPath = new File(BackupPath);
+		if ( (!bPath.exists()) || (!bPath.isDirectory()) ) {
+		    bPath.mkdirs();
+		}
+    }
     public static String BackupDatabase () {
 	String backupFileName = new String();
 	try {
@@ -28,10 +34,7 @@ public class BackupHelper {
 		String currentDBPath = "\\data\\" + PackageName + "\\databases\\" + DBName + "";
 		backupFileName = getBackupFileName();
 		String backupDBPath = "anTimeLog_bk\\" + backupFileName ;
-		File bPath = new File(BackupPath);
-		if ( (!bPath.exists()) || (!bPath.isDirectory()) ) {
-		    bPath.mkdirs();
-		}
+
 		File currentDB = new File(data, currentDBPath);
 		File backupDB = new File(sd, backupDBPath);
 		if (currentDB.exists()) {
@@ -54,15 +57,12 @@ public class BackupHelper {
 	    return false;
 	}
 	try {
+
 	    File sd = Environment.getExternalStorageDirectory();
 	    File data = Environment.getDataDirectory();
 	    if (sd.canWrite()) {
 		String currentDBPath = "\\data\\" + PackageName + "\\databases\\" + DBName + "";
 		String backupDBPath = "anTimeLog_bk\\" + fileName;
-		File bPath = new File(BackupPath);
-		if ( (!bPath.exists()) || (!bPath.isDirectory()) ) {
-		    bPath.mkdirs();
-		}
 		File currentDB = new File(data, currentDBPath);
 		File backupDB = new File(sd, backupDBPath);
 		if (currentDB.exists()) {
@@ -83,6 +83,7 @@ public class BackupHelper {
     public static String [] getBackupFileList() {
 	ArrayList<String> files = new ArrayList<String> ();
 	File sd = Environment.getExternalStorageDirectory();
+
 	String backupPath = "anTimeLog_bk\\";
 	File backupDBs = new File(sd,backupPath);
 	for(File f:backupDBs.listFiles()) {
