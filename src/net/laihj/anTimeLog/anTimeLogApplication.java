@@ -25,9 +25,7 @@ public class anTimeLogApplication extends Application {
     }
 
     public DBHelper getDatabase() {
-	Log.i("backup","getDatabase");
 	if (null == this.theDBHelper) {
-	Log.i("backup","get new");	    
 	    this.theDBHelper = new DBHelper(this);
 	}
 	return this.theDBHelper;

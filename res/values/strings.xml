@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="confirm">Warning</string>
     <string name="app_name">anTimeLog</string>
     <string name="setting">setting</string>
     <string name="ok">OK</string>
@@ -39,5 +40,10 @@
     <string name="tracking">No event tracking</string>
     <string name="show_icon_on_status_bar">show Notification</string>
     <string name="if_show_icon_on_stats_bar">show an icon on status bar to switch easily</string>
+    <string name="clear_confirm">Your data will be clear....</string>
+    <string name="recover_confirm">Your data will be overwrite....</string>
+    <string name="clearall">Clear</string>
+    <string name="backup">Backup</string>
+    <string name="recovery">Recovery</string>
 
 </resources>

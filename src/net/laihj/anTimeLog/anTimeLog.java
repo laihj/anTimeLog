@@ -59,6 +59,8 @@ public class anTimeLog extends Activity
     final static private int DO_IT = 1;
     final static private int CLICKITEM = 1984;
     final static private int CLEARCONFIRM = 1989;
+    final static private int FILESELECT = 1990;
+    final static private int RECORVERYCONFIRM = 1991;
     //position of OptionsMenu
     final static private int MENU_SETTING = Menu.FIRST;
     final static private int MENU_ALA = Menu.FIRST + 1;
@@ -76,7 +78,7 @@ public class anTimeLog extends Activity
     final static private int CON_REPROT_TYPE = CON_REPROT_THIS + 1;
     
 
-    
+    public CharSequence [] backupFile;    
     private ArrayList<eventItem> events;
     private eventAdapter myAdapter;
     private DBHelper myDBHelper;
@@ -223,17 +225,19 @@ public class anTimeLog extends Activity
 	    }
 	}
     }
+    public String seletedFile;
      @Override
     protected Dialog onCreateDialog(int id) {
 	 switch( id ) {
 	 case CLEARCONFIRM:
 	     return new AlertDialog.Builder(anTimeLog.this)
-		 .setTitle("Confirm?")
-		 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		 .setTitle(res.getText(R.string.confirm))
+		 .setMessage(res.getText(R.string.clear_confirm))
+		 .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
 			 public void onClick(DialogInterface dialog,int which) {
 			 }
 		     })
-		 .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+		 .setPositiveButton(res.getText(R.string.ok),new DialogInterface.OnClickListener() {
 			 public void onClick(DialogInterface dialog,int which) {
 			     anTimeLog.this.myDBHelper.clearall();
 			     anTimeLog.this.events.clear();
@@ -242,6 +246,42 @@ public class anTimeLog extends Activity
 		     }
 		     )
 		 .create();
+	 case RECORVERYCONFIRM:
+	     return new AlertDialog.Builder(anTimeLog.this)
+		 .setTitle(res.getText(R.string.confirm))
+		 .setMessage(res.getText(R.string.recover_confirm))
+		 .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+			 public void onClick(DialogInterface dialog,int which) {
+			 }
+		     })
+		 .setPositiveButton(res.getText(R.string.ok),new DialogInterface.OnClickListener() {
+			 public void onClick(DialogInterface dialog,int which) {
+			     ((anTimeLogApplication) anTimeLog.this.getApplication()).shutdownDataBase();
+			     BackupHelper.restoreDatabase(anTimeLog.this.seletedFile);
+			     anTimeLog.this.needReflash = true;
+			 }
+		     }
+		 )
+		 .create();
+
+	 case FILESELECT:
+
+	     backupFile = BackupHelper.getBackupFileList();
+	     return new AlertDialog.Builder(anTimeLog.this)
+		 .setTitle(res.getText(R.string.confirm))
+
+		 .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+			 public void onClick(DialogInterface dialog, int which) {
+			     removeDialog(FILESELECT);
+			 }
+		     })
+		 .setItems(backupFile,new DialogInterface.OnClickListener() {
+			 public void onClick(DialogInterface dialog, int which) {
+			     anTimeLog.this.seletedFile =(String) anTimeLog.this.backupFile[which];
+			     showDialog(RECORVERYCONFIRM);
+			     removeDialog(FILESELECT);
+			 }
+		     }).create();
 	 case CLICKITEM :
 	     if ( null == selectedEvent ){
 		 return null;
@@ -347,9 +387,9 @@ public class anTimeLog extends Activity
             android.R.drawable.ic_menu_preferences);
 	menu.add(0, anTimeLog.MENU_ALA, 0, R.string.analysis).setIcon(android.R.drawable.ic_menu_report_image);
 	menu.add(0, anTimeLog.MENU_ABOUT, 0, R.string.about).setIcon(android.R.drawable.ic_menu_info_details);
-	menu.add(0,anTimeLog.CLEARALL, 0 , R.string.about);
-	menu.add(0,anTimeLog.MENU_BACKUP, 0 , R.string.about);
-	menu.add(0,anTimeLog.MENU_RECOVERY, 0 , R.string.about);
+	menu.add(0,anTimeLog.CLEARALL, 0 , R.string.clearall);
+	menu.add(0,anTimeLog.MENU_BACKUP, 0 , R.string.backup);
+	menu.add(0,anTimeLog.MENU_RECOVERY, 0 , R.string.recovery);
         return true;
     }
 
@@ -376,14 +416,11 @@ public class anTimeLog extends Activity
 	    
 	    return true;
 	case anTimeLog.MENU_BACKUP:
-	    ((anTimeLogApplication) getApplication()).shutdownDataBase();
 	    BackupHelper.BackupDatabase();
 	    needReflash = true;
 	    return true;
 	case anTimeLog.MENU_RECOVERY:
-	    ((anTimeLogApplication) getApplication()).shutdownDataBase();
-	    BackupHelper.restoreDatabase();
-	    needReflash = true;
+	    showDialog(FILESELECT);
 	    return true;
         }
         return true;
