@@ -39,5 +39,13 @@
     <string name="tracking">没有正在进行的事务</string>
     <string name="show_icon_on_status_bar">显示状态栏图标</string>
     <string name="if_show_icon_on_stats_bar">在状态栏上显示一个图标以方便切换程序</string>
+    <string name="clear_confirm">当前数据将被清空....</string>
+    <string name="recover_confirm">当前数据将被覆盖....</string>
+    <string name="clearall">清空</string>
+    <string name="backup">备份</string>
+    <string name="recovery">恢复</string>
+    <string name="backups">备份成功!</string>
+    <string name="backupe">备份失败，请稍后重试.</string>
+    <string name="confirm">警告</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package net.laihj.anTimeLog;
 
+import android.widget.Toast;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
@@ -416,7 +417,12 @@ public class anTimeLog extends Activity
 	    
 	    return true;
 	case anTimeLog.MENU_BACKUP:
-	    BackupHelper.BackupDatabase();
+	    String result = BackupHelper.BackupDatabase();
+	    if("".equals(result)) {
+		Toast.makeText(getApplicationContext(),res.getText(R.string.backupe),Toast.LENGTH_LONG).show();
+	    } else {
+		Toast.makeText(getApplicationContext(),result + " " + res.getText(R.string.backups),Toast.LENGTH_LONG).show();
+	    }
 	    needReflash = true;
 	    return true;
 	case anTimeLog.MENU_RECOVERY:

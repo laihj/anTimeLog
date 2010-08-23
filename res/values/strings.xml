@@ -45,5 +45,7 @@
     <string name="clearall">Clear</string>
     <string name="backup">Backup</string>
     <string name="recovery">Recovery</string>
+    <string name="backups"> backup secessed!</string>
+    <string name="backupe">backup error,try again later.</string>
 
 </resources>

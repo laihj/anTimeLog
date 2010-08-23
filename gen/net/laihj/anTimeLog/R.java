@@ -116,6 +116,8 @@ containing a value of this type.
         public static final int app_name=0x7f070001;
         public static final int author_info=0x7f07001a;
         public static final int backup=0x7f070021;
+        public static final int backupe=0x7f070024;
+        public static final int backups=0x7f070023;
         public static final int cancel=0x7f070004;
         public static final int clear_confirm=0x7f07001e;
         public static final int clearall=0x7f070020;
