@@ -153,7 +153,7 @@ public class editItem extends Activity
 	};
 
     private void initComponent(eventItem event) {
-	Log.i("anTimeLog","init");
+
 	eventText.setText(event.event);
 	typeText.setText(event.type);
 	startDate.setText(event.getStartDate());

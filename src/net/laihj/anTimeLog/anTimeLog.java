@@ -260,6 +260,7 @@ public class anTimeLog extends Activity
 			     ((anTimeLogApplication) anTimeLog.this.getApplication()).shutdownDataBase();
 			     BackupHelper.restoreDatabase(anTimeLog.this.seletedFile);
 			     anTimeLog.this.needReflash = true;
+			     anTimeLog.this.onResume();
 			 }
 		     }
 		 )

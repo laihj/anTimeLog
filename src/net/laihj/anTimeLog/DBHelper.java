@@ -20,7 +20,7 @@ public class DBHelper
     public static final String LOG_TAG = "DBHelper";
     public static final String DB_NAME = "time_log";
     public static final String DB_TABLE = "your_time_log";
-    public static final int DB_VERSION = 3;
+    public static final int DB_VERSION = 4;
 
     private static final String CLASSNAME = DBHelper.class.getSimpleName();
     private static final String[] COLS = new String[] { "_id", "event", "startTime", "endTime", "type"};
@@ -56,8 +56,11 @@ public class DBHelper
 
         @Override
         public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS " + DBHelper.DB_TABLE);
-            onCreate(db);
+	    if (oldVersion == 3 && newVersion == 4) {
+		//	Log.i("update","update");
+		//	db.execSQL("Alter Table " + DBHelper.DB_TABLE + " add COLUMN note Text " );
+	    }
+	    //          onCreate(db);
         }
     }
 
