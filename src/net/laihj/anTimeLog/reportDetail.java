@@ -60,7 +60,7 @@ public class reportDetail extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reports);
+        setContentView(R.layout.detail);
 	
 	anTimeLogApplication application = (anTimeLogApplication) getApplication();
         myDBHelper = application.getDatabase();

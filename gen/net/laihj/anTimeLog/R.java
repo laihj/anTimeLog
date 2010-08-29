@@ -75,40 +75,45 @@ containing a value of this type.
     public static final class drawable {
         public static final int antimelog=0x7f020000;
         public static final int antimelog2=0x7f020001;
-        public static final int icon=0x7f020002;
-        public static final int solid_blue=0x7f020004;
-        public static final int solid_red=0x7f020003;
+        public static final int button=0x7f020002;
+        public static final int buttonshape=0x7f020003;
+        public static final int icon=0x7f020004;
+        public static final int solid_blue=0x7f020006;
+        public static final int solid_red=0x7f020005;
     }
     public static final class id {
-        public static final int OK=0x7f08000d;
-        public static final int cacel=0x7f08000e;
-        public static final int endDate=0x7f080009;
-        public static final int endLabel=0x7f080008;
-        public static final int endTime=0x7f08000a;
-        public static final int eventLabel=0x7f080003;
-        public static final int eventText=0x7f080004;
-        public static final int eventtext=0x7f080010;
-        public static final int icon=0x7f08000f;
+        public static final int OK=0x7f080012;
+        public static final int byevent=0x7f080017;
+        public static final int bytype=0x7f080018;
+        public static final int cacel=0x7f080013;
+        public static final int endDate=0x7f08000e;
+        public static final int endLabel=0x7f08000d;
+        public static final int endTime=0x7f08000f;
+        public static final int eventLabel=0x7f080008;
+        public static final int eventText=0x7f080009;
+        public static final int eventtext=0x7f080015;
+        public static final int icon=0x7f080014;
         public static final int list=0x7f080000;
-        public static final int next=0x7f080016;
-        public static final int prev=0x7f080013;
+        public static final int next=0x7f080007;
+        public static final int prev=0x7f080004;
         public static final int quickAddButton=0x7f080002;
         public static final int quickAddText=0x7f080001;
-        public static final int reportfrom=0x7f080014;
-        public static final int reportlist=0x7f080012;
-        public static final int reportto=0x7f080015;
-        public static final int startDate=0x7f080006;
-        public static final int startLabel=0x7f080005;
-        public static final int startTime=0x7f080007;
-        public static final int time=0x7f080011;
-        public static final int typeLabel=0x7f08000b;
-        public static final int typeText=0x7f08000c;
+        public static final int reportfrom=0x7f080005;
+        public static final int reportlist=0x7f080003;
+        public static final int reportto=0x7f080006;
+        public static final int startDate=0x7f08000b;
+        public static final int startLabel=0x7f08000a;
+        public static final int startTime=0x7f08000c;
+        public static final int time=0x7f080016;
+        public static final int typeLabel=0x7f080010;
+        public static final int typeText=0x7f080011;
     }
     public static final class layout {
         public static final int antimelog=0x7f030000;
-        public static final int edit_item=0x7f030001;
-        public static final int notify=0x7f030002;
-        public static final int reports=0x7f030003;
+        public static final int detail=0x7f030001;
+        public static final int edit_item=0x7f030002;
+        public static final int notify=0x7f030003;
+        public static final int reports=0x7f030004;
     }
     public static final class string {
         public static final int about=0x7f070013;
@@ -118,6 +123,8 @@ containing a value of this type.
         public static final int backup=0x7f070021;
         public static final int backupe=0x7f070024;
         public static final int backups=0x7f070023;
+        public static final int byevent=0x7f070027;
+        public static final int bytype=0x7f070026;
         public static final int cancel=0x7f070004;
         public static final int clear_confirm=0x7f07001e;
         public static final int clearall=0x7f070020;

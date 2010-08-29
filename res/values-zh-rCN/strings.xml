@@ -48,4 +48,6 @@
     <string name="backupe">备份失败，请稍后重试.</string>
     <string name="confirm">警告</string>
     <string name="nobackupfile">没有备份文件!</string>
+    <string name="bytype">类型</string>
+    <string name="byevent">事件</string>
 </resources>

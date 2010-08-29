@@ -175,6 +175,31 @@ public class DBHelper
 	return ret;
     }
 
+    public List<reportItem> getReportByType(Date startTime, Date endTime) {
+	ArrayList<reportItem> ret = new ArrayList<reportItem> ();
+	endTime = new Date( endTime.getTime() + ONE_DAY );
+	Cursor c = null;
+	try {
+	    c = this.db.rawQuery("select type,sum( strftime('%s',endTime) - strftime('%s', startTime) ) ti  from your_time_log where endTime != '' and startTime > '" + DateToSqlite(startTime) + "' and startTime < '" + DateToSqlite(endTime) + "' group by type order by ti desc",null);
+	    int numRows = c.getCount();
+	    c.moveToFirst();
+	    for( int i = 0 ; i < numRows ; i++ ) {
+		reportItem ri = new reportItem();
+		ri.event = c.getString(0);
+		ri.seconds = c.getLong(1);
+		ret.add(ri);
+		c.moveToNext();
+	    }
+	} catch (SQLException e) {
+	     Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
+	} finally {
+	    if (c != null && !c.isClosed()) {
+		c.close();
+	    }
+	}
+	return ret;
+    }
+
     public List<eventItem> getReportEvent(String event, Date startTime, Date endTime) {
 	ArrayList<eventItem> ret = new ArrayList<eventItem> ();
 	endTime = new Date( endTime.getTime() + ONE_DAY );

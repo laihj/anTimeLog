@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#FF2B2B2B"
     >
   <TextView android:id="@+id/eventLabel"
 	    android:layout_width="fill_parent"
@@ -30,12 +31,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="StartDate"
+	    android:textColor="#ffffffff"
+	    android:background="@drawable/button"
         />
         <Button android:id="@+id/startTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="StartTime"
+	    android:textColor="#ffffffff"
+	    android:background="@drawable/button"
         />
   </LinearLayout>
   <LinearLayout
@@ -53,12 +58,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="EndDate"
+	    android:textColor="#ffffffff"
+	    android:background="@drawable/button"
+
         />
         <Button android:id="@+id/endTime"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="EndTime"
+	    android:textColor="#ffffffff"
+	    android:background="@drawable/button"
         />
   </LinearLayout>
     <LinearLayout
@@ -87,12 +97,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ok"
+	    android:textColor="#ffffffff"
+	    android:background="@drawable/button"
         />
         <Button android:id="@+id/cacel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/cancel"
+	    android:textColor="#ffffffff"
+	    android:background="@drawable/button"
         />
   </LinearLayout>
 </LinearLayout>

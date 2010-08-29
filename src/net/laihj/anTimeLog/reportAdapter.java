@@ -85,6 +85,9 @@ public class reportAdapter extends BaseAdapter {
 
 	    setOnClickListener(new OnClickListener(){
 		public void onClick(View v) {
+		    if ("type".equals(((reports) reportListView.this.context).theType)) {
+			return;
+		    }
 		    Intent reportIntent = new Intent("net.laihj.anTimeLog.action.REPORTDETAIL");
 		    reportIntent.putExtra("event",reportListView.this.myReport.event);
 		    reportIntent.putExtra("startDate",((reports) reportListView.this.context).getStartDate().getTime());

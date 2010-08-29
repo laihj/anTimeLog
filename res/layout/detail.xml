@@ -6,31 +6,6 @@
     android:layout_height="fill_parent"
     android:background="#FF2B2B2B"
     >
-      <LinearLayout
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <Button android:id="@+id/byevent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-	    android:background="@drawable/button"
-            android:layout_weight="1"
-            android:text="@string/byevent"
-	    android:textColor="#FFFFFFFF"
-        />
-
-        <Button android:id="@+id/bytype"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-	    android:background="@drawable/button"
-	    android:textColor="#ffffffff"
-            android:text="@string/bytype"
-        />
-
-        </LinearLayout>
   <FrameLayout
      android:layout_width="fill_parent"
      android:layout_height="wrap_content"

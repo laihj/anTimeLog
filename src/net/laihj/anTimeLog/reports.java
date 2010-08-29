@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.math.BigDecimal;
 import net.laihj.anTimeLog.DBHelper;
+import android.util.Log;
 
 public class reports extends Activity
 {
@@ -36,6 +37,8 @@ public class reports extends Activity
     private Button next;
     private Button start;
     private Button end;
+    private Button byType;
+    private Button byEvent;
     private Date startDate;
     private Date endDate;
     final static long ONE_DAY = 86400000;
@@ -46,6 +49,7 @@ public class reports extends Activity
     private TextView tailView;
 
     private boolean isMonth;
+    public String theType;
     //position of OptionsMenu
     final static private int MENU_TODAY = Menu.FIRST;
     final static private int MENU_TWEEK = Menu.FIRST + 1;
@@ -70,12 +74,15 @@ public class reports extends Activity
 	anTimeLogApplication application = (anTimeLogApplication) getApplication();
         myDBHelper = application.getDatabase();
 
-
+	// Log.i("a","b");
+	theType = "event";
 	listView = (ListView) findViewById(R.id.reportlist);
 	prev = (Button) findViewById(R.id.prev);
 	next = (Button) findViewById(R.id.next);
 	start = (Button) findViewById(R.id.reportfrom);
 	end = (Button) findViewById(R.id.reportto);
+	byType = (Button) findViewById(R.id.bytype);
+	byEvent = (Button) findViewById(R.id.byevent);
 	tailView = new TextView(this);
 	tailView.setGravity(Gravity.RIGHT);
 	tailView.setTextSize(17f);
@@ -86,6 +93,8 @@ public class reports extends Activity
 	next.setOnClickListener(listenser);
 	start.setOnClickListener(listenser);
 	end.setOnClickListener(listenser);
+	byType.setOnClickListener(listenser);
+	byEvent.setOnClickListener(listenser);
 
 
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
@@ -139,7 +148,13 @@ public class reports extends Activity
     private void updateReport() {
 	end.setText(getDate(endDate));
 	start.setText(getDate(startDate));
-	list = (ArrayList<reportItem>) myDBHelper.getReport(startDate,endDate);
+	Log.i("change",theType);
+	if("event".equals(theType)) {
+	    list = (ArrayList<reportItem>) myDBHelper.getReport(startDate,endDate);
+
+	} else {
+	       list = (ArrayList<reportItem>) myDBHelper.getReportByType(startDate,endDate);
+	}
         adapter = new reportAdapter(this,list);
 	tailView.setText(sumRecordTime());
 	listView.setAdapter(adapter);
@@ -181,6 +196,14 @@ public class reports extends Activity
     private OnClickListener listenser = new OnClickListener() {
 	    public void onClick(View v) {
 		switch(v.getId()) {
+		case R.id.bytype:
+		    theType = "type";
+		    updateReport();
+		    break;
+		case R.id.byevent:
+		    theType = "event";
+		    updateReport();
+		    break;
 		case R.id.prev:
 		    if(isMonth) {
 			Calendar rightNow = Calendar.getInstance();
