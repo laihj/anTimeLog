@@ -82,17 +82,18 @@ containing a value of this type.
         public static final int solid_red=0x7f020005;
     }
     public static final class id {
-        public static final int OK=0x7f080012;
-        public static final int byevent=0x7f080017;
-        public static final int bytype=0x7f080018;
-        public static final int cacel=0x7f080013;
-        public static final int endDate=0x7f08000e;
-        public static final int endLabel=0x7f08000d;
-        public static final int endTime=0x7f08000f;
-        public static final int eventLabel=0x7f080008;
-        public static final int eventText=0x7f080009;
-        public static final int eventtext=0x7f080015;
-        public static final int icon=0x7f080014;
+        public static final int OK=0x7f080013;
+        public static final int byevent=0x7f080018;
+        public static final int bytype=0x7f080019;
+        public static final int cacel=0x7f080014;
+        public static final int detail=0x7f080008;
+        public static final int endDate=0x7f08000f;
+        public static final int endLabel=0x7f08000e;
+        public static final int endTime=0x7f080010;
+        public static final int eventLabel=0x7f080009;
+        public static final int eventText=0x7f08000a;
+        public static final int eventtext=0x7f080016;
+        public static final int icon=0x7f080015;
         public static final int list=0x7f080000;
         public static final int next=0x7f080007;
         public static final int prev=0x7f080004;
@@ -101,19 +102,20 @@ containing a value of this type.
         public static final int reportfrom=0x7f080005;
         public static final int reportlist=0x7f080003;
         public static final int reportto=0x7f080006;
-        public static final int startDate=0x7f08000b;
-        public static final int startLabel=0x7f08000a;
-        public static final int startTime=0x7f08000c;
-        public static final int time=0x7f080016;
-        public static final int typeLabel=0x7f080010;
-        public static final int typeText=0x7f080011;
+        public static final int startDate=0x7f08000c;
+        public static final int startLabel=0x7f08000b;
+        public static final int startTime=0x7f08000d;
+        public static final int time=0x7f080017;
+        public static final int typeLabel=0x7f080011;
+        public static final int typeText=0x7f080012;
     }
     public static final class layout {
         public static final int antimelog=0x7f030000;
         public static final int detail=0x7f030001;
-        public static final int edit_item=0x7f030002;
-        public static final int notify=0x7f030003;
-        public static final int reports=0x7f030004;
+        public static final int detailview=0x7f030002;
+        public static final int edit_item=0x7f030003;
+        public static final int notify=0x7f030004;
+        public static final int reports=0x7f030005;
     }
     public static final class string {
         public static final int about=0x7f070013;
@@ -136,6 +138,7 @@ containing a value of this type.
         public static final int default_view_comment=0x7f070017;
         public static final int display_num=0x7f070014;
         public static final int display_num_comment=0x7f070015;
+        public static final int donate=0x7f070028;
         public static final int donothing=0x7f07000f;
         public static final int endp=0x7f07000b;
         public static final int event=0x7f070009;

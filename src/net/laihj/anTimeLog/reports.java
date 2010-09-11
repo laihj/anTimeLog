@@ -74,7 +74,7 @@ public class reports extends Activity
 	anTimeLogApplication application = (anTimeLogApplication) getApplication();
         myDBHelper = application.getDatabase();
 
-	// Log.i("a","b");
+	Log.i("a","b");
 	theType = "event";
 	listView = (ListView) findViewById(R.id.reportlist);
 	prev = (Button) findViewById(R.id.prev);
@@ -104,6 +104,7 @@ public class reports extends Activity
 	} else if("This Week".equals(defaultView)) {
 	    setThisWeek();
 	} else {
+	    Log.i("thismonth","thismonth");
 	    Calendar rightNow = Calendar.getInstance();
 	    setMonth(rightNow);
 	}
@@ -148,23 +149,22 @@ public class reports extends Activity
     private void updateReport() {
 	end.setText(getDate(endDate));
 	start.setText(getDate(startDate));
-	Log.i("change",theType);
+
 	if("event".equals(theType)) {
 	    list = (ArrayList<reportItem>) myDBHelper.getReport(startDate,endDate);
-
 	} else {
 	       list = (ArrayList<reportItem>) myDBHelper.getReportByType(startDate,endDate);
 	}
         adapter = new reportAdapter(this,list);
-	tailView.setText(sumRecordTime());
+	//	tailView.setText(sumRecordTime());
 	listView.setAdapter(adapter);
     }
 
-    public String getTimeString(long seconds) {
-	Long sec = seconds;
-	Long hours =  sec / ( 60 * 60 );
-	sec = sec - hours * 3600 ;
-	Long minute =  sec / 60 ;
+    public String getTimeString(BigDecimal seconds) {
+	BigDecimal sec = seconds;
+	Long hours =  sec.divide(new BigDecimal( 60 * 60 )).longValue();
+	sec = sec.subtract(new BigDecimal(hours * 3600)) ;
+	Long minute =  sec.divide(new BigDecimal(60)).longValue() ;
 	StringBuilder dura = new StringBuilder();
 	if(hours > 0 ) {
 	    dura.append( hours + " hr ");
@@ -177,16 +177,18 @@ public class reports extends Activity
 
 
     private String sumRecordTime() {
-	long sumSeconds = 0;
+	BigDecimal sumSeconds = new BigDecimal(0);
 	for (reportItem ri : list) {
-	    sumSeconds += ri.seconds;
+	    sumSeconds = sumSeconds.add(new BigDecimal(ri.seconds));
 	}
 	return "Recorded " + getTimeString(sumSeconds) + " (" + presentOfTime(sumSeconds) + "%)";
     }
 
-    private String presentOfTime(long sumS) {
+    private String presentOfTime(BigDecimal sumS) {
 	double r;
-	r = (double) sumS/((double) diffDate/1000)*100;
+	Log.i("sec",sumS.divide(new BigDecimal(259200000)).toString());
+	r = sumS.divide(new BigDecimal((double) diffDate/10)).doubleValue();
+	Log.i("sec","" + r);
 	BigDecimal bd = new BigDecimal(r);
 	bd = bd.setScale(2,BigDecimal.ROUND_UP);
 	r = bd.doubleValue();
@@ -260,6 +262,7 @@ public class reports extends Activity
 	    setThisWeek();
             return true;
 	case MENU_TMON:
+      
 	    Calendar rightNow = Calendar.getInstance();
 	    setMonth(rightNow);
 	    return true;
@@ -288,6 +291,7 @@ public class reports extends Activity
 	startDate = getDateOnly(rightNow.getTime());
 	rightNow.set(Calendar.DATE, rightNow.getActualMaximum(Calendar.DATE));
 	endDate = getDateOnly(rightNow.getTime());
+	diffDate = endDate.getTime() - startDate.getTime() + ONE_DAY;
 	isMonth = true;
 	updateReport();
     }
