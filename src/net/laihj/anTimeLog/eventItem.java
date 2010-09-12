@@ -10,6 +10,7 @@ public class eventItem
 	public long id;
 	public String event;
 	private Date startTime;
+	public String note;
 	static private SimpleDateFormat mDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	static private SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
 	public Date getStartTime() {
@@ -108,7 +109,7 @@ public class eventItem
 	    this.startTime = startTime;
 	}
 
-	public eventItem(final long id, final String event, final Date startTime, final Date endTime, final String type, final String duration)
+	public eventItem(final long id, final String event, final Date startTime, final Date endTime, final String type, final String duration,final String note)
 	{
 	    this.id = id;
 	    this.event = event;
@@ -116,6 +117,7 @@ public class eventItem
 	    this.endTime = endTime;
 	    this.type = type;
 	    this.duration = duration;
+	    this.note = note;
 	}
 	
     }

@@ -53,6 +53,7 @@ public class reportDetailAdapter extends BaseAdapter {
 	private TextView theTime;
 	private TextView event;
 	private Context context;
+	private TextView note;
 
 	public reportDetailListView(Context context, eventItem event) {
 	    super(context);
@@ -66,9 +67,24 @@ public class reportDetailAdapter extends BaseAdapter {
 	    this.theTime.setId(3);
 	    this.theTime.setText(myEvent.getDuration());
 	    this.theTime.setTextSize(16f);
-	    this.theTime.setPadding(0,3,0,3);
+	    this.theTime.setPadding(1,1,0,1);
 	    this.theTime.setTextColor(Color.WHITE);
 	    this.addView(this.theTime,rltheTime);
+            final RelativeLayout.LayoutParams rltheNote = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+										  ViewGroup.LayoutParams.WRAP_CONTENT);
+	    rltheNote.addRule(RelativeLayout.BELOW,3);
+	    this.note = new TextView(context);
+	    this.note.setId(4);
+	    this.note.setText(myEvent.note);
+	    this.note.setTextSize(16f);
+	    this.note.setPadding(12,1,0,1);
+	    this.note.setTextColor(Color.WHITE);
+
+
+      	    if(0 != this.note.getText().toString().trim().length()) {
+
+		    this.addView(this.note,rltheNote);
+	    }
 	}
     }
 }

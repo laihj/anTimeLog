@@ -28,6 +28,7 @@ public class editItem extends Activity
 
     private EditText eventText;
     private EditText typeText;
+    private EditText noteText;
     private Button startDate ;
     private Button endDate;
     private Button startTime;
@@ -51,6 +52,7 @@ public class editItem extends Activity
 
 	eventText = (EditText) findViewById(R.id.eventText);
 	typeText = (EditText) findViewById(R.id.typeText);
+	noteText = (EditText) findViewById(R.id.noteText);
 	startDate = (Button) findViewById(R.id.startDate);
 	endDate = (Button) findViewById(R.id.endDate);
 	startTime = (Button) findViewById(R.id.startTime);
@@ -75,6 +77,7 @@ public class editItem extends Activity
 		public void onClick(View v) {
 		    theEvent.event = eventText.getText().toString();
 		    theEvent.type = typeText.getText().toString();
+		    theEvent.note = noteText.getText().toString();
 		    myDBHelper.update(theEvent);
 		    editItem.this.setResult(10,editItem.this.getIntent());
 		    editItem.this.finish();
@@ -162,6 +165,7 @@ public class editItem extends Activity
 	startTime.setText(event.getStartTimes());
 	endDate.setText(event.getEndDate());
 	endTime.setText(event.getEndTimes());
+	noteText.setText(event.note);
  
     }
 }

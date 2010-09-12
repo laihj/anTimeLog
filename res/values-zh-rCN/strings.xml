@@ -50,4 +50,5 @@
     <string name="nobackupfile">没有备份文件!</string>
     <string name="bytype">类型</string>
     <string name="byevent">事件</string>
+    <string name="noteLabel">笔记:</string>
 </resources>

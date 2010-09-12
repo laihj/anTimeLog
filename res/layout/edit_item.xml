@@ -87,6 +87,24 @@
             android:singleLine="true"
 		 />
   </LinearLayout>
+    <LinearLayout
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical" >
+     <TextView android:id="@+id/noteLabel"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="@string/noteLabel"
+	    android:textSize="16sp" >
+      </TextView>
+       <EditText android:id="@+id/noteText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:minLines="5"
+	    android:gravity="top"
+		 />
+  </LinearLayout>
+
 
   <LinearLayout
      android:layout_width="fill_parent"

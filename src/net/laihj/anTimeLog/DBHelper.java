@@ -20,10 +20,10 @@ public class DBHelper
     public static final String LOG_TAG = "DBHelper";
     public static final String DB_NAME = "time_log";
     public static final String DB_TABLE = "your_time_log";
-    public static final int DB_VERSION = 4;
+    public static final int DB_VERSION = 5;
 
     private static final String CLASSNAME = DBHelper.class.getSimpleName();
-    private static final String[] COLS = new String[] { "_id", "event", "startTime", "endTime", "type"};
+    private static final String[] COLS = new String[] { "_id", "event", "startTime", "endTime", "type", "note"};
 
     private SQLiteDatabase db;
     private final DBOpenHelper dbOpenHelper;
@@ -56,9 +56,9 @@ public class DBHelper
 
         @Override
         public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-	    if (oldVersion == 3 && newVersion == 4) {
-		//	Log.i("update","update");
-		//	db.execSQL("Alter Table " + DBHelper.DB_TABLE + " add COLUMN note Text " );
+	    if (newVersion == 5) {
+		Log.i("new","" + oldVersion + " " + newVersion);
+	       	db.execSQL("Alter Table " + DBHelper.DB_TABLE + " add COLUMN note Text " );
 	    }
 	    //          onCreate(db);
         }
@@ -89,6 +89,7 @@ public class DBHelper
 	values.put("startTime",DateToSqlite(event.getStartTime()));
 	values.put("endTime",DateToSqlite(event.getEndTime()));
 	values.put("type",event.type);
+	values.put("note",event.note);
 	return this.db.insert(DBHelper.DB_TABLE, null, values);
     }
 
@@ -98,6 +99,7 @@ public class DBHelper
 	values.put("startTime",DateToSqlite(event.getStartTime()));
 	values.put("endTime",DateToSqlite(event.getEndTime()));
 	values.put("type",event.type);
+	values.put("note",event.note);
 	this.db.update(DBHelper.DB_TABLE,values,"_id=" + event.id, null);
     }
 
@@ -109,7 +111,8 @@ public class DBHelper
 	    event.event = c.getString(1);
 	    event.setStartTime(sqliteToDate(c.getString(2)));
 	    event.setEndTime(sqliteToDate(c.getString(3)));
-	    event.type = c.getString(4);	
+	    event.type = c.getString(4);
+	    event.note = c.getString(5);
 	} catch (SQLException e) {
 	    Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
 	} finally {
@@ -133,7 +136,8 @@ public class DBHelper
 	    event.event = c.getString(1);
 	    event.setStartTime(sqliteToDate(c.getString(2)));
 	    event.setEndTime(sqliteToDate(c.getString(3)));
-	    event.type = c.getString(4);	
+	    event.type = c.getString(4);
+	    event.note = c.getString(5);
 	} catch (SQLException e) {
 	    Log.v(LOG_TAG,DBHelper.CLASSNAME, e);
 	} finally {
@@ -215,6 +219,7 @@ public class DBHelper
 		reporti.setStartTime(sqliteToDate(c.getString(2)));
 		reporti.setEndTime(sqliteToDate(c.getString(3)));
 		reporti.type = c.getString(4);
+		reporti.note = c.getString(5);
 		ret.add(reporti);
 		c.moveToNext();
 	    }
@@ -243,6 +248,7 @@ public class DBHelper
 		event.setStartTime(sqliteToDate(c.getString(2)));
 		event.setEndTime(sqliteToDate(c.getString(3)));
 		event.type = c.getString(4);
+		event.note = c.getString(5);
 		ret.add(event);
 		c.moveToNext();
 	    }

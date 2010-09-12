@@ -158,7 +158,7 @@ public class anTimeLog extends Activity
         setContentView(R.layout.antimelog);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	//	myDBHelper = new DBHelper(this);
-
+	Log.i("antimelog","begin");
 	list = (ListView) findViewById(R.id.list);
 	quickText = (AutoCompleteTextView) findViewById(R.id.quickAddText);
 	Button quickButton = (Button) findViewById(R.id.quickAddButton);

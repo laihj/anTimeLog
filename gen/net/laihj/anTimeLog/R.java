@@ -82,20 +82,22 @@ containing a value of this type.
         public static final int solid_red=0x7f020005;
     }
     public static final class id {
-        public static final int OK=0x7f080013;
-        public static final int byevent=0x7f080018;
-        public static final int bytype=0x7f080019;
-        public static final int cacel=0x7f080014;
+        public static final int OK=0x7f080015;
+        public static final int byevent=0x7f08001a;
+        public static final int bytype=0x7f08001b;
+        public static final int cacel=0x7f080016;
         public static final int detail=0x7f080008;
         public static final int endDate=0x7f08000f;
         public static final int endLabel=0x7f08000e;
         public static final int endTime=0x7f080010;
         public static final int eventLabel=0x7f080009;
         public static final int eventText=0x7f08000a;
-        public static final int eventtext=0x7f080016;
-        public static final int icon=0x7f080015;
+        public static final int eventtext=0x7f080018;
+        public static final int icon=0x7f080017;
         public static final int list=0x7f080000;
         public static final int next=0x7f080007;
+        public static final int noteLabel=0x7f080013;
+        public static final int noteText=0x7f080014;
         public static final int prev=0x7f080004;
         public static final int quickAddButton=0x7f080002;
         public static final int quickAddText=0x7f080001;
@@ -105,7 +107,7 @@ containing a value of this type.
         public static final int startDate=0x7f08000c;
         public static final int startLabel=0x7f08000b;
         public static final int startTime=0x7f08000d;
-        public static final int time=0x7f080017;
+        public static final int time=0x7f080019;
         public static final int typeLabel=0x7f080011;
         public static final int typeText=0x7f080012;
     }
@@ -145,6 +147,7 @@ containing a value of this type.
         public static final int if_show_icon_on_stats_bar=0x7f07001d;
         public static final int next=0x7f07000e;
         public static final int nobackupfile=0x7f070025;
+        public static final int noteLabel=0x7f070029;
         public static final int ok=0x7f070003;
         public static final int prev=0x7f07000d;
         public static final int recover_confirm=0x7f07001f;

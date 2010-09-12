@@ -74,7 +74,6 @@ public class reports extends Activity
 	anTimeLogApplication application = (anTimeLogApplication) getApplication();
         myDBHelper = application.getDatabase();
 
-	Log.i("a","b");
 	theType = "event";
 	listView = (ListView) findViewById(R.id.reportlist);
 	prev = (Button) findViewById(R.id.prev);
@@ -95,7 +94,7 @@ public class reports extends Activity
 	end.setOnClickListener(listenser);
 	byType.setOnClickListener(listenser);
 	byEvent.setOnClickListener(listenser);
-
+	Log.i("abc","abc");
 
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
 	String defaultView = shardPre.getString("view_preference","Today");
