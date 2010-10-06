@@ -104,14 +104,7 @@ public class anTimeLog extends Activity
 		    needReflash = false;
 	    }
 	};
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-	//	if(keyCode == KeyEvent.KEYCODE_BACK) {
-	//  dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN,KeyEvent.KEYCODE_HOME));
-	//  return true;
-	//	}
-	return super.onKeyDown(keyCode,event);
-    }
+
     private void eventNotify() {
 	if (!showIcon) {
 	    return;
@@ -157,16 +150,12 @@ public class anTimeLog extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.antimelog);
         mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-	//	myDBHelper = new DBHelper(this);
-	Log.i("antimelog","begin");
 	list = (ListView) findViewById(R.id.list);
 	quickText = (AutoCompleteTextView) findViewById(R.id.quickAddText);
 	Button quickButton = (Button) findViewById(R.id.quickAddButton);
         res = getResources();
 	events = new ArrayList<eventItem> ();
-	//get all list first
 	needReflash = true;
-
 
 	quickButton.setOnClickListener(new OnClickListener() {
 		public void onClick(View v) {
@@ -180,7 +169,6 @@ public class anTimeLog extends Activity
 
     protected void onDestroy() {
 	super.onDestroy();
-	//mNotificationManager.cancel(R.layout.notify);
     }
 
 
@@ -231,127 +219,143 @@ public class anTimeLog extends Activity
     protected Dialog onCreateDialog(int id) {
 	 switch( id ) {
 	 case CLEARCONFIRM:
-	     return new AlertDialog.Builder(anTimeLog.this)
-		 .setTitle(res.getText(R.string.confirm))
-		 .setMessage(res.getText(R.string.clear_confirm))
-		 .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
-			 public void onClick(DialogInterface dialog,int which) {
-			 }
-		     })
-		 .setPositiveButton(res.getText(R.string.ok),new DialogInterface.OnClickListener() {
-			 public void onClick(DialogInterface dialog,int which) {
-			     anTimeLog.this.myDBHelper.clearall();
-			     anTimeLog.this.events.clear();
-			     anTimeLog.this.myAdapter.notifyDataSetChanged();
-			 }
-		     }
-		     )
-		 .create();
+	     return getClearConfirmDialog();
 	 case RECORVERYCONFIRM:
-	     return new AlertDialog.Builder(anTimeLog.this)
-		 .setTitle(res.getText(R.string.confirm))
-		 .setMessage(res.getText(R.string.recover_confirm))
-		 .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
-			 public void onClick(DialogInterface dialog,int which) {
-			 }
-		     })
-		 .setPositiveButton(res.getText(R.string.ok),new DialogInterface.OnClickListener() {
-			 public void onClick(DialogInterface dialog,int which) {
-			     ((anTimeLogApplication) anTimeLog.this.getApplication()).shutdownDataBase();
-			     BackupHelper.restoreDatabase(anTimeLog.this.seletedFile);
-			     anTimeLog.this.needReflash = true;
-			     anTimeLog.this.onResume();
-			 }
-		     }
-		 )
-		 .create();
-
+	     return getConfirmDialog();
 	 case FILESELECT:
-
-
-	     return new AlertDialog.Builder(anTimeLog.this)
-		 .setTitle(res.getText(R.string.confirm))
-
-		 .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
-			 public void onClick(DialogInterface dialog, int which) {
-			     removeDialog(FILESELECT);
-			 }
-		     })
-		 .setItems(backupFile,new DialogInterface.OnClickListener() {
-			 public void onClick(DialogInterface dialog, int which) {
-			     anTimeLog.this.seletedFile =(String) anTimeLog.this.backupFile[which];
-			     showDialog(RECORVERYCONFIRM);
-			     removeDialog(FILESELECT);
-			 }
-		     }).create();
+	     return getFileSelect();
 	 case CLICKITEM :
-	     if ( null == selectedEvent ){
-		 return null;
-	     } else {
-		 CharSequence [] conMenu;
-		 conMenu = res.getTextArray(R.array.conmenu);
-		 return new AlertDialog.Builder(anTimeLog.this)
-		     .setTitle(selectedEvent.event)
-		     .setNegativeButton(res.getText(R.string.donothing), new DialogInterface.OnClickListener() {
-			     public void onClick(DialogInterface dialog, int which) {
-			     }
-			 })
-		     .setItems(conMenu, new DialogInterface.OnClickListener() {
-			     public void onClick(DialogInterface dialog, int which) {
-				 switch( which ) {
-				 case CON_END:
-				     if(null == selectedEvent.getEndTime()) {
-					 selectedEvent.setEndTime(new Date());
-					 anTimeLog.this.myDBHelper.update(selectedEvent);
-					 anTimeLog.this.myAdapter.notifyDataSetChanged();
-				     }
-				     eventNotify();
-				     break;
-				 case CON_EDIT:
-				     Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
-				     intent.putExtra("eventid",selectedEvent.id);
-				     anTimeLog.this.startActivityForResult(intent,1);
-				     break;
-				 case CON_DO_IT:
-				     eventItem ei = new eventItem(selectedEvent.event, new Date());
-				     ei.type = selectedEvent.type;
-				     anTimeLog.this.addEvent(ei);
-				     eventNotify();
-				     break;
-				 case CON_DELETE:
-				     myDBHelper.delete(selectedEvent.id);
-				     anTimeLog.this.events.remove(selectedEvent);
-				     anTimeLog.this.myAdapter.notifyDataSetChanged();
-				     selectedEvent = null;
-				     eventNotify();
-				     break;
-				 case CON_REPROT_THIS:
-				     break;
-				 case CON_REPROT_TYPE:
-				     break;
-				 }
-				     
-			     }
-			 })
-		     .create();
-			 }
+	     return getDialogClick();
 	 case ABOUT:
-	     final TextView message = new TextView(this);
-	     final SpannableString s = 
-             new SpannableString(res.getText(R.string.author_info));
-	     Linkify.addLinks(s, Linkify.ALL);
-	     message.setText(s);
-	     message.setMovementMethod(LinkMovementMethod.getInstance());
-	     message.setTextSize(19f);
-
-	     return new AlertDialog.Builder(anTimeLog.this)
-                .setTitle(R.string.about)
-		 .setView(message)
-                .create();
-
+	     return getDialogAbout();
 	 }
 	 return null;
      }
+
+    private AlertDialog getClearConfirmDialog() {
+	return new AlertDialog.Builder(anTimeLog.this)
+	    .setTitle(res.getText(R.string.confirm))
+	    .setMessage(res.getText(R.string.clear_confirm))
+	    .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog,int which) {
+		    }
+		})
+	    .setPositiveButton(res.getText(R.string.ok),new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog,int which) {
+			anTimeLog.this.myDBHelper.clearall();
+			anTimeLog.this.events.clear();
+			anTimeLog.this.myAdapter.notifyDataSetChanged();
+		    }
+		}
+		)
+	    .create();
+    }
+
+    private AlertDialog getConfirmDialog() {
+	return new AlertDialog.Builder(anTimeLog.this)
+	    .setTitle(res.getText(R.string.confirm))
+	    .setMessage(res.getText(R.string.recover_confirm))
+	    .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog,int which) {
+		    }
+		})
+	    .setPositiveButton(res.getText(R.string.ok),new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog,int which) {
+			((anTimeLogApplication) anTimeLog.this.getApplication()).shutdownDataBase();
+			BackupHelper.restoreDatabase(anTimeLog.this.seletedFile);
+			anTimeLog.this.needReflash = true;
+			anTimeLog.this.onResume();
+		    }
+		}
+		)
+	    .create();
+    }
+
+    private AlertDialog getFileSelect() {
+	return new AlertDialog.Builder(anTimeLog.this)
+	    .setTitle(res.getText(R.string.confirm))
+	    
+	    .setNegativeButton(res.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int which) {
+			removeDialog(FILESELECT);
+		    }
+		})
+	    .setItems(backupFile,new DialogInterface.OnClickListener() {
+		    public void onClick(DialogInterface dialog, int which) {
+			anTimeLog.this.seletedFile =(String) anTimeLog.this.backupFile[which];
+			showDialog(RECORVERYCONFIRM);
+			removeDialog(FILESELECT);
+		    }
+		}).create();
+    }
+
+    private AlertDialog getDialogClick() {
+	if ( null == selectedEvent ){
+	    return null;
+	} else {
+	    CharSequence [] conMenu;
+	    conMenu = res.getTextArray(R.array.conmenu);
+	    return new AlertDialog.Builder(anTimeLog.this)
+		.setTitle(selectedEvent.event)
+		.setNegativeButton(res.getText(R.string.donothing), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		    })
+		.setItems(conMenu, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			    switch( which ) {
+			    case CON_END:
+				if(null == selectedEvent.getEndTime()) {
+				    selectedEvent.setEndTime(new Date());
+				    anTimeLog.this.myDBHelper.update(selectedEvent);
+				    anTimeLog.this.myAdapter.notifyDataSetChanged();
+				}
+				eventNotify();
+				break;
+			    case CON_EDIT:
+				Intent intent = new Intent("net.laihj.anTimeLog.action.EDIT_ITEM");
+				intent.putExtra("eventid",selectedEvent.id);
+				anTimeLog.this.startActivityForResult(intent,1);
+				break;
+			    case CON_DO_IT:
+				eventItem ei = new eventItem(selectedEvent.event, new Date());
+				ei.type = selectedEvent.type;
+				anTimeLog.this.addEvent(ei);
+				eventNotify();
+				break;
+			    case CON_DELETE:
+				myDBHelper.delete(selectedEvent.id);
+				anTimeLog.this.events.remove(selectedEvent);
+				anTimeLog.this.myAdapter.notifyDataSetChanged();
+				selectedEvent = null;
+				eventNotify();
+				break;
+			    case CON_REPROT_THIS:
+				break;
+			    case CON_REPROT_TYPE:
+				break;
+			    }
+			    
+			}
+		    })
+		.create();
+	}
+
+    }
+    private AlertDialog getDialogAbout() {
+	final TextView message = new TextView(this);
+	final SpannableString s = 
+	    new SpannableString(res.getText(R.string.author_info));
+	Linkify.addLinks(s, Linkify.ALL);
+	message.setText(s);
+	message.setMovementMethod(LinkMovementMethod.getInstance());
+	message.setTextSize(19f);
+
+	return new AlertDialog.Builder(anTimeLog.this)
+	    .setTitle(R.string.about)
+	    .setView(message)
+	    .create();
+    }
     @Override
     public void onResume() {
 	super.onResume();
