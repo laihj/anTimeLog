@@ -90,6 +90,7 @@ public class DBHelper
 	values.put("endTime",DateToSqlite(event.getEndTime()));
 	values.put("type",event.type);
 	values.put("note",event.note);
+	
 	return this.db.insert(DBHelper.DB_TABLE, null, values);
     }
 

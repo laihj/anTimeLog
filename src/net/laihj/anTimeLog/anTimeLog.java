@@ -3,13 +3,10 @@ package net.laihj.anTimeLog;
 import android.widget.Toast;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.View;
 import android.util.Log;
 import android.content.Intent;
@@ -54,10 +51,8 @@ import java.lang.Integer;
 
 public class anTimeLog extends Activity
 {
-    final static private int LONGCLICK = 1;
     final static private int SETTINGS = 2;
     final static private int ABOUT = 3;
-    final static private int DO_IT = 1;
     final static private int CLICKITEM = 1984;
     final static private int CLEARCONFIRM = 1989;
     final static private int FILESELECT = 1990;
@@ -86,7 +81,6 @@ public class anTimeLog extends Activity
     private AutoCompleteTextView quickText ;
     public ListView list;
     public eventItem selectedEvent = null;
-    private ProgressDialog progressDialog;
     private Resources res;
     private int display_num = 30;
     /** Called when the activity is first created. */

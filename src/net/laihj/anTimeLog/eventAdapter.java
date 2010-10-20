@@ -53,6 +53,7 @@ public class eventAdapter extends BaseAdapter {
 	private TextView event;
 	private TextView theTime;
 	private TextView type;
+	
 	//	private Button endBtn;
 	//	private Button EditBtn;
 	private Context context;
@@ -65,7 +66,7 @@ public class eventAdapter extends BaseAdapter {
 	    this.setFocusable(true);
 	    this.setLongClickable(true);
 	    RelativeLayout.LayoutParams rlEvent = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-										  ViewGroup.LayoutParams.WRAP_CONTENT,100);
+										  ViewGroup.LayoutParams.WRAP_CONTENT);
 	    this.event = new TextView(context);
 	    this.event.setId(1);
 	    this.event.setText(myEvent.event);
@@ -74,9 +75,10 @@ public class eventAdapter extends BaseAdapter {
 	    this.addView(this.event,rlEvent);
 
 	    RelativeLayout.LayoutParams rlType = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-										 ViewGroup.LayoutParams.WRAP_CONTENT,1);
+										 ViewGroup.LayoutParams.WRAP_CONTENT);
 	  
 	    rlType.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+	    
 	    this.type = new TextView(context);
 	    this.type.setPadding(5,5,5,5);
 	    this.type.setId(2);
@@ -91,34 +93,9 @@ public class eventAdapter extends BaseAdapter {
 	    this.theTime.setId(3);
 	    this.theTime.setText(myEvent.getDuration());
 	    this.theTime.setTextSize(14f);
+	
 	    this.theTime.setTextColor(Color.GRAY);
 	    this.addView(this.theTime,rltheTime);
-	    /*	    
-	    final RelativeLayout.LayoutParams rleditBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-										  ViewGroup.LayoutParams.WRAP_CONTENT);
-	    rleditBtn.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-	    rleditBtn.addRule(RelativeLayout.BELOW,3);
-	    rleditBtn.rightMargin = 5;
-	    this.EditBtn = new Button(context);
-	    this.EditBtn.setId(4);
-	    this.EditBtn.setText("Edit");
-	    
-
-	    final RelativeLayout.LayoutParams rlendBtn = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-
-	      								   ViewGroup.LayoutParams.WRAP_CONTENT);
-	    rlendBtn.addRule(RelativeLayout.BELOW,3);
-	    rlendBtn.addRule(RelativeLayout.LEFT_OF,4);
-	    rlendBtn.leftMargin = 10;
-	    this.endBtn = new Button(context);
-	    this.endBtn.setId(5);
-	    this.endBtn.setText("END");
-	    this.endBtn.setOnClickListener(listenser);
-	    if(null == myEvent.getEndTime()){
-		this.endBtn.setEnabled(true);
-	    }else{
-		this.endBtn.setEnabled(false);
-		}*/
 	    setOnClickListener(new OnClickListener(){
 		public void onClick(View v) {
 		    ((anTimeLog) eventListView.this.context).selectedEvent = eventListView.this.myEvent;
