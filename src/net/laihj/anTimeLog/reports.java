@@ -3,11 +3,9 @@ package net.laihj.anTimeLog;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ArrayAdapter;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.app.DatePickerDialog;
@@ -15,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.widget.ImageView;
 import android.view.Gravity;
 
 

@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 
 public class eventItem
     {
-	private boolean timeChanged=true;
 	public long id;
 	public String event;
 	private Date startTime;
@@ -18,7 +17,6 @@ public class eventItem
 	}
 	public void setStartTime(Date startTime) {
 	    this.startTime = startTime;
-	    this.timeChanged = true;
 	}
 
 	public String getStartDate() {
@@ -43,7 +41,6 @@ public class eventItem
 	}
 	public void setEndTime(Date endTime) {
 	    this.endTime = endTime;
-	    this.timeChanged = true;
 	}
 
 	public String getEndDate() {
@@ -75,7 +72,6 @@ public class eventItem
 	        } else {
 		    sb.append(diff(endTime,startTime));
 	        }
-	        this.timeChanged = false;
 	        this.duration =  sb.toString();
 	    }
 	    return this.duration;

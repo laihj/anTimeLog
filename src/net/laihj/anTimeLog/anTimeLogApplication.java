@@ -1,9 +1,5 @@
 package net.laihj.anTimeLog;
-
-import android.util.Log;
-
 import android.app.Application;
-
 import net.laihj.anTimeLog.DBHelper;
 
 public class anTimeLogApplication extends Application {

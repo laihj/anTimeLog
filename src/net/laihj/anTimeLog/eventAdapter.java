@@ -1,28 +1,20 @@
 package net.laihj.anTimeLog;
 
-import android.view.View.OnLongClickListener;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Button;
 import android.app.Activity;
-import android.content.Intent;
 
 
 import net.laihj.anTimeLog.eventItem;
 
 import java.util.List;
-import java.util.Date;
 
 public class eventAdapter extends BaseAdapter {
-
-    private static final String CLASSTAG = eventAdapter.class.getSimpleName();
     private final Context context;
     private final List<eventItem> events;
 
