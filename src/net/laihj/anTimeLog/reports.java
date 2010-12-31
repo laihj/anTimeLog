@@ -96,6 +96,7 @@ public class reports extends Activity
 	SharedPreferences shardPre = PreferenceManager.getDefaultSharedPreferences(this);
 	String defaultView = shardPre.getString("view_preference","Today");
         if("Today".equals(defaultView)) {
+	    Log.i("hama","today");
 	    setToday();
 	} else if("This Week".equals(defaultView)) {
 	    setThisWeek();
@@ -158,9 +159,9 @@ public class reports extends Activity
 
     public String getTimeString(BigDecimal seconds) {
 	BigDecimal sec = seconds;
-	Long hours =  sec.divide(new BigDecimal( 60 * 60 )).longValue();
+	Long hours =  sec.divide(new BigDecimal( 3600 ),2,BigDecimal.ROUND_DOWN).longValue();
 	sec = sec.subtract(new BigDecimal(hours * 3600)) ;
-	Long minute =  sec.divide(new BigDecimal(60)).longValue() ;
+	Long minute =  sec.divide(new BigDecimal(60),2,BigDecimal.ROUND_DOWN).longValue() ;
 	StringBuilder dura = new StringBuilder();
 	if(hours > 0 ) {
 	    dura.append( hours + " hr ");
@@ -182,7 +183,8 @@ public class reports extends Activity
 
     private String presentOfTime(BigDecimal sumS) {
         double r;      
-        r = sumS.divide(new BigDecimal((double) diffDate/10)).doubleValue();
+        r = sumS.divide(new BigDecimal((double) diffDate/1000),6,BigDecimal.ROUND_DOWN).doubleValue();
+	r = r * 100;
         BigDecimal bd = new BigDecimal(r);
         bd = bd.setScale(2,BigDecimal.ROUND_UP);
         r = bd.doubleValue();
