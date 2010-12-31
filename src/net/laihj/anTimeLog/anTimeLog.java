@@ -32,6 +32,9 @@ import android.app.PendingIntent;
 import android.widget.RemoteViews;
 import android.view.inputmethod.InputMethodManager;
 import android.content.Context;
+import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.webkit.WebView;
 
 
 import net.laihj.anTimeLog.eventItem;
@@ -331,6 +334,11 @@ public class anTimeLog extends Activity
 
     }
     private AlertDialog getDialogAbout() {
+	LinearLayout aboutLabel = new LinearLayout(this);
+	aboutLabel.setOrientation(1);
+	LinearLayout.LayoutParams rlText = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+									 ViewGroup.LayoutParams.FILL_PARENT,2);
+
 	final TextView message = new TextView(this);
 	final SpannableString s = 
 	    new SpannableString(res.getText(R.string.author_info));
@@ -338,10 +346,15 @@ public class anTimeLog extends Activity
 	message.setText(s);
 	message.setMovementMethod(LinkMovementMethod.getInstance());
 	message.setTextSize(19f);
-
+	aboutLabel.addView(message,rlText);
+	/*	LinearLayout.LayoutParams rlImage = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+									      ViewGroup.LayoutParams.FILL_PARENT,1);
+	WebView wv = new WebView(this);
+	wv.loadUrl("http://antimelog.appspot.com/ads.html");
+	aboutLabel.addView(wv,rlImage);*/
 	return new AlertDialog.Builder(anTimeLog.this)
 	    .setTitle(R.string.about)
-	    .setView(message)
+	    .setView(aboutLabel)
 	    .create();
     }
     @Override
