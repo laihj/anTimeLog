@@ -3,13 +3,10 @@ package net.laihj.anTimeLog;
 import android.widget.Toast;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.View;
 import android.util.Log;
 import android.content.Intent;
@@ -17,18 +14,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.app.Dialog;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.view.View.OnCreateContextMenuListener;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.view.KeyEvent;
-import android.app.ProgressDialog;
 import android.os.Message;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -54,10 +45,8 @@ import java.lang.Integer;
 
 public class anTimeLog extends Activity
 {
-    final static private int LONGCLICK = 1;
     final static private int SETTINGS = 2;
     final static private int ABOUT = 3;
-    final static private int DO_IT = 1;
     final static private int CLICKITEM = 1984;
     final static private int CLEARCONFIRM = 1989;
     final static private int FILESELECT = 1990;
@@ -86,7 +75,6 @@ public class anTimeLog extends Activity
     private AutoCompleteTextView quickText ;
     public ListView list;
     public eventItem selectedEvent = null;
-    private ProgressDialog progressDialog;
     private Resources res;
     private int display_num = 30;
     /** Called when the activity is first created. */

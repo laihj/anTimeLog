@@ -3,11 +3,9 @@ package net.laihj.anTimeLog;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ArrayAdapter;
 import android.view.View.OnClickListener;
 import android.view.View;
 import android.app.DatePickerDialog;
@@ -15,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.widget.ImageView;
 import android.view.Gravity;
 
 
@@ -155,7 +152,7 @@ public class reports extends Activity
 	       list = (ArrayList<reportItem>) myDBHelper.getReportByType(startDate,endDate);
 	}
         adapter = new reportAdapter(this,list);
-	//	tailView.setText(sumRecordTime());
+	tailView.setText(sumRecordTime());
 	listView.setAdapter(adapter);
     }
 
@@ -184,14 +181,12 @@ public class reports extends Activity
     }
 
     private String presentOfTime(BigDecimal sumS) {
-	double r;
-	Log.i("sec",sumS.divide(new BigDecimal(259200000)).toString());
-	r = sumS.divide(new BigDecimal((double) diffDate/10)).doubleValue();
-	Log.i("sec","" + r);
-	BigDecimal bd = new BigDecimal(r);
-	bd = bd.setScale(2,BigDecimal.ROUND_UP);
-	r = bd.doubleValue();
-	return "" + r;
+        double r;      
+        r = sumS.divide(new BigDecimal((double) diffDate/10)).doubleValue();
+        BigDecimal bd = new BigDecimal(r);
+        bd = bd.setScale(2,BigDecimal.ROUND_UP);
+        r = bd.doubleValue();
+        return "" + r;
     }
 
     private OnClickListener listenser = new OnClickListener() {
@@ -270,35 +265,29 @@ public class reports extends Activity
     }
 
     private void setToday() {
-	startDate = getDateOnly(new Date());
-	endDate = getDateOnly(new Date());
+        startDate = getDateOnly(new Date());
+        endDate = getDateOnly(new Date());
         diffDate = ONE_DAY;
-	isMonth = false;
-	updateReport();
+        isMonth = false;
+        updateReport();
     }
 
     private void setThisWeek() {
-	startDate = new Date(new Date().getTime() - new Date().getDay() * ONE_DAY);
-	endDate = new Date(startDate.getTime() + 6 * ONE_DAY);
-	diffDate = 7 * ONE_DAY;
-	isMonth = false;
-	updateReport();
+        startDate = new Date(new Date().getTime() - new Date().getDay() * ONE_DAY);
+        endDate = new Date(startDate.getTime() + 6 * ONE_DAY);
+        diffDate = 7 * ONE_DAY;
+        isMonth = false;
+        updateReport();
     }
 
     private void setMonth(Calendar rightNow) {
-	rightNow.set(Calendar.DATE, rightNow.getActualMinimum(Calendar.DATE));
-	startDate = getDateOnly(rightNow.getTime());
-	rightNow.set(Calendar.DATE, rightNow.getActualMaximum(Calendar.DATE));
-	endDate = getDateOnly(rightNow.getTime());
-	diffDate = endDate.getTime() - startDate.getTime() + ONE_DAY;
-	isMonth = true;
-	updateReport();
-    }
-
-    private void prevMonth() {
-    }
-
-    private void nextMonth() {
+        rightNow.set(Calendar.DATE, rightNow.getActualMinimum(Calendar.DATE));
+        startDate = getDateOnly(rightNow.getTime());
+        rightNow.set(Calendar.DATE, rightNow.getActualMaximum(Calendar.DATE));
+        endDate = getDateOnly(rightNow.getTime());
+        diffDate = endDate.getTime() - startDate.getTime() + ONE_DAY;
+        isMonth = true;
+        updateReport();
     }
 
 }

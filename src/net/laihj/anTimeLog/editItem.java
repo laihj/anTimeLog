@@ -2,19 +2,14 @@ package net.laihj.anTimeLog;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.EditText;
 import android.widget.Button;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
 import android.view.View.OnClickListener;
 import android.view.View;
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.laihj.anTimeLog.eventItem;
