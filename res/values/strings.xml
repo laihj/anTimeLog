@@ -50,7 +50,6 @@
     <string name="nobackupfile">No backup file existed!</string>
     <string name="bytype">TYPE</string>
     <string name="byevent">EVENT</string>
-    <string name="donate">
-      </string>
+    <string name="donate">en.html</string>
     <string name="noteLabel">Note:</string>
 </resources>

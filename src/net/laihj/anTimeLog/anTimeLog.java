@@ -347,11 +347,11 @@ public class anTimeLog extends Activity
 	message.setMovementMethod(LinkMovementMethod.getInstance());
 	message.setTextSize(19f);
 	aboutLabel.addView(message,rlText);
-	/*	LinearLayout.LayoutParams rlImage = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+       	LinearLayout.LayoutParams rlImage = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 									      ViewGroup.LayoutParams.FILL_PARENT,1);
 	WebView wv = new WebView(this);
-	wv.loadUrl("http://antimelog.appspot.com/ads.html");
-	aboutLabel.addView(wv,rlImage);*/
+	wv.loadUrl("file:///android_asset/" + res.getString(R.string.donate));
+	aboutLabel.addView(wv,rlImage);
 	return new AlertDialog.Builder(anTimeLog.this)
 	    .setTitle(R.string.about)
 	    .setView(aboutLabel)
