@@ -42,14 +42,14 @@ public class DBHelper
 
         @Override
         public void onCreate(final SQLiteDatabase db) {
-            try {		
+            try {
                 db.execSQL(DBOpenHelper.DB_CREATE);
-            } catch (SQLException e) 
-                log.e(LOG_TAG, DBHelper.CLASSNAME, e);
-            } 
+            } catch (SQLException e) {
+                Log.e(LOG_TAG, DBHelper.CLASSNAME, e);
+            }
         }
 
-        @override
+        @Override
         public void onOpen(final SQLiteDatabase db) {
             super.onOpen(db);
         }
@@ -90,6 +90,7 @@ public class DBHelper
 	values.put("endTime",DateToSqlite(event.getEndTime()));
 	values.put("type",event.type);
 	values.put("note",event.note);
+	
 	return this.db.insert(DBHelper.DB_TABLE, null, values);
     }
 
