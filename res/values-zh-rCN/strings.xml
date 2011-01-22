@@ -9,9 +9,9 @@
     <string name="timeformat">HH:mm:ss</string>
     <string name="start">开始</string>
     <string name="event">事件</string>
-    <string name="startp">始于: </string>
+    <string name="startp">始于：</string>
     <string name="endp">终于：</string>
-    <string name="typep">类型:</string>
+    <string name="typep">类型：</string>
     <string name="prev">&lt;&lt;</string>
     <string name="next">&gt;&gt;</string>
     <string name="donothing">什么也不做</string>
